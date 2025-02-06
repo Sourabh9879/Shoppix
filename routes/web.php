@@ -28,4 +28,17 @@ Route::get('/add-product', function () {
 Route::get('/profile', function () {
     return view('User.profile');
 })->name('profile');
+Route::get('/cart', function () {
+    return view('User.cart');
+})->name('cart');
+
+// admin routes
+
+Route::get('/admin-products', function () {
+    return view('Admin.products');
+})->name('admproducts');
+
+Route::get('/users', function () {
+    return view('Admin.users');
+})->name('admuser');
 

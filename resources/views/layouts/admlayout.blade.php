@@ -97,30 +97,20 @@
 
 <body>
     <div class="sidebar">
-        <h4>User Dashboard</h4>
+        <h4>Admin Dashboard</h4>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">home</span>
-            <a href="{{ route('userdash') }}">Dashboard</a>
+            <a href="{{ route('admdash') }}">Dashboard</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">format_list_bulleted</span>
-            <a href="{{ route('products') }}">Products</a>
-        </div>
-        <div class="d-flex align-items-center justify-content-start pl-2">
-            <span class="material-symbols-outlined">add_task</span>
-            <a href="{{ route('addProduct') }}">Add Product</a>
-        </div>
-        <div class="d-flex align-items-center justify-content-start pl-2">
-            <span class="material-symbols-outlined">
-                shopping_cart
-            </span>
-            <a href="{{ route('cart') }}">My Cart</a>
+            <a href="{{ route('admproducts') }}">Products</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">
                 manage_accounts
             </span>
-            <a href="{{ route('profile') }}">Profile</a>
+            <a href="{{ route('admuser') }}">Users</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2 ">
             <span class="material-symbols-outlined">logout</span>
