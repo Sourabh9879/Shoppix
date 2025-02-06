@@ -22,10 +22,10 @@
         margin-top: 50px;
         display: flex;
         justify-content: flex-end;
-        flex-direction: column;
         align-items: center;
         width: 100%;
-        max-width: 400px;
+        flex-direction:column;
+        padding-left:45em;
       }
       .card {
         width: 100%;
@@ -40,7 +40,7 @@
   <body>
     <div class="container form-container">
     @if (session('success'))
-            <div class="alert alert-success d-flex align-items-center justify-content-center">
+            <div class="alert alert-success d-flex align-items-center justify-content-center" style="max-width: 400px;">
                 <span class="material-symbols-outlined me-1">
                     check_circle
                 </span>
@@ -48,7 +48,7 @@
             </div>
         @endif
         @if (session('failed'))
-            <div class="alert alert-danger d-flex align-items-center justify-content-center">
+            <div class="alert alert-danger d-flex align-items-center justify-content-center" style="max-width: 400px;">
                 <span class="material-symbols-outlined me-1">
                     warning
                 </span>
