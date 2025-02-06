@@ -45,7 +45,7 @@ class AuthController extends Controller
         $user->save();
         
         if($user){
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success','User Created Successfully');
         }
 
     }
@@ -63,13 +63,14 @@ class AuthController extends Controller
         if($user && Hash::check($data->password, $user->password)){
             session()->put('name', $user->name);
             session()->put('user_id', $user->id);
+            session()->put('role', $user->role);
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {
                 return redirect()->route('userdash');
             }
         } else {
-            return back()->withErrors(['Invalid credentials']);
+            return back()->withErrors(['Invalid Credentials']);
         }
     }
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>Login</title>
     <style>
       body {
@@ -21,15 +22,39 @@
         margin-top: 50px;
         display: flex;
         justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
       }
       .card {
         width: 100%;
         max-width: 400px;
       }
+      .alert {
+        width: 100%;
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
     <div class="container form-container">
+    @if (session('success'))
+            <div class="alert alert-success d-flex align-items-center justify-content-center">
+                <span class="material-symbols-outlined me-1">
+                    check_circle
+                </span>
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('failed'))
+            <div class="alert alert-danger d-flex align-items-center justify-content-center">
+                <span class="material-symbols-outlined me-1">
+                    warning
+                </span>
+                {{ session('failed') }}
+            </div>
+        @endif
       <div class="card">
         <div class="card-header">
           <h2>Have your products ready with <strong>Shoppix</strong></h2>
@@ -40,16 +65,14 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
-              <span style=" color:red ">@error('email'){{$message}}@enderror</span>
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" required />
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
-              <span style=" color:red ">@error('password'){{$message}}@enderror</span>
+              <input type="password" class="form-control" id="password" name="password" required />
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Verify</button>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
           </form>
         </div>
         <div class="card-footer text-center">

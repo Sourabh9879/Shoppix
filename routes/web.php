@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\UserAuthMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\http\Controllers\UserController;
+use App\http\Controllers\AdminController;
 
 Route::get('/', [AuthController::class,'ShowLogin'])->name('login');
 Route::post('LoginUser', [AuthController::class,'LoginUser'])->name('LoginUser');
@@ -15,30 +19,13 @@ Route::get('LogoutUser', [AuthController::class,'LogoutUser'])->name('logout');
 Route::get('/admdash', [AuthController::class,'ShowAdminDash'])->name('admdash');
 
 // this route will return user dashboard view
-Route::get('/userdash', [AuthController::class,'ShowUserDash'])->name('userdash');
-
-Route::get('/products', function () {
-    return view('User.products');
-})->name('products');
-
-Route::get('/add-product', function () {
-    return view('User.addProduct');
-})->name('addProduct');
-
-Route::get('/profile', function () {
-    return view('User.profile');
-})->name('profile');
-Route::get('/cart', function () {
-    return view('User.cart');
-})->name('cart');
+Route::get('/userdash', [AuthController::class,'ShowUserDash'])->name('userdash')->middleware(UserAuthMiddleware::class);
+Route::get('/products',[UserController::class,'showProduct'])->name('userproducts')->middleware(UserAuthMiddleware::class);
+Route::get('/add-product',[UserController::class,'addProduct'])->name('addProduct')->middleware(UserAuthMiddleware::class);
+Route::get('/profile',[UserController::class,'showProfile'])->name('profile')->middleware(UserAuthMiddleware::class);
+Route::get('/cart',[UserController::class,'showCart'])->name('cart')->middleware(UserAuthMiddleware::class);
 
 // admin routes
-
-Route::get('/admin-products', function () {
-    return view('Admin.products');
-})->name('admproducts');
-
-Route::get('/users', function () {
-    return view('Admin.users');
-})->name('admuser');
+Route::get('/admin-products',[AdminController::class,'showProducts'])->name('admproducts')->middleware(AdminMiddleware::class);
+Route::get('/users',[AdminController::class,'showUsers'])->name('admuser')->middleware(AdminMiddleware::class);
 

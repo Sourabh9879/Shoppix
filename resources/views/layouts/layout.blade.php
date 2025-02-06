@@ -104,7 +104,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">format_list_bulleted</span>
-            <a href="{{ route('products') }}">Products</a>
+            <a href="{{ route('userproducts') }}">Products</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">add_task</span>
