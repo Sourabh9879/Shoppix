@@ -23,18 +23,20 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/products','showProduct')->name('userproducts');
     Route::get('/add-product','addProduct')->name('addProduct');
     Route::get('/my-products','myProducts')->name('myproducts');
-    Route::get('/profile','showProfile')->name('profile');
+    Route::get('/profile/{id}','showProfile')->name('profile');
+    Route::put('/update/{id}','updateProfile')->name('updateProfile');
     Route::get('/cart','showCart')->name('cart');
-    });
+});
 });
 
 
 // admin routes
 Route::middleware([AdminMiddleware::class])->group(function(){
     Route::get('/admdash', [AuthController::class,'ShowAdminDash'])->name('admdash');
-
-Route::controller(AdminController::class)->group(function(){
-    Route::get('/admin-products','showProducts')->name('admproducts');
-    Route::get('/users','showUsers')->name('admuser');
+    
+    Route::controller(AdminController::class)->group(function(){
+        Route::get('/admin-products','showProducts')->name('admproducts');
+        Route::get('/users','showUsers')->name('admuser');
+        Route::get('/admprofile/{id}','showadmProfile')->name('admprofile');
     });
 });

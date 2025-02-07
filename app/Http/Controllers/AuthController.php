@@ -64,6 +64,7 @@ class AuthController extends Controller
             session()->put('name', $user->name);
             session()->put('user_id', $user->id);
             session()->put('role', $user->role);
+            session(['user_image' => $user->image]);
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {

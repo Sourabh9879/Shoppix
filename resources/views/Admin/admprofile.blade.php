@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.admlayout')
 
 @section('title', 'Profile')
 
@@ -7,6 +7,22 @@
 @section('name', session('name'))
 
 @section('content')
+@if (session('success'))
+        <div class="alert alert-success d-flex align-items-center justify-content-center" style="max-width: 400px;">
+            <span class="material-symbols-outlined me-1">
+                check_circle
+            </span>
+            {{ session('success') }}
+        </div>
+        @endif
+        @if (session('failed'))
+        <div class="alert alert-danger d-flex align-items-center justify-content-center" style="max-width: 400px;">
+            <span class="material-symbols-outlined me-1">
+                warning
+            </span>
+            {{ session('failed') }}
+        </div>
+        @endif
     <form action="{{ route('updateProfile', ['id' => $data->id]) }}" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 600px;">
         @csrf
         @method('PUT')
@@ -26,15 +42,6 @@
             <input type="email" class="form-control" id="email" name="email" value="{{ $data->email }}" required>
         </div>
         <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ $data->phone }}" required>
-            <span>@error('phone'){{$message}}@enderror</span>
-        </div>
-        <div class="form-group">
-            <label for="address">Address</label>
-            <textarea class="form-control" id="address" name="address" required>{{ $data->address }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="image">Profile Image</label>
             <input type="file" class="form-control-file" id="image" name="image" accept=".jpg,.png,.jpeg">
             @error('image')
@@ -43,7 +50,7 @@
         </div>
         <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{{ route('userdash') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('admdash') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 @endsection

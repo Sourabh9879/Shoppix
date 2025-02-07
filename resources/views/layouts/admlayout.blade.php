@@ -112,6 +112,12 @@
             </span>
             <a href="{{ route('admuser') }}">Users</a>
         </div>
+         <div class="d-flex align-items-center justify-content-start pl-2">
+            <span class="material-symbols-outlined">
+                manage_accounts
+            </span>
+            <a href="{{ route('admprofile',['id' => session('user_id')]) }}">Profile</a>
+        </div>
         <div class="d-flex align-items-center justify-content-start pl-2 ">
             <span class="material-symbols-outlined">logout</span>
             <a href="{{ route('logout') }}">Logout</a>
@@ -121,7 +127,12 @@
         <div class="header d-flex justify-content-between aligh-items-center">
             <h1>@yield('heading')</h1>
             <div class="d-flex justify-content-center aligh-items-center">
+            @if(session('user_image'))
+                <img src="{{ asset('storage/' . session('user_image')) }}" alt="User Image" class="rounded-circle mx-2"
+                    style="width: 30px; height: 30px;">
+                @else
                 <span class="material-symbols-outlined mx-2 pt-1">account_circle</span>
+                @endif
                 <a href="" class="text-center pt-1 non">@yield('name')</a>
 
             </div>
