@@ -8,90 +8,90 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>@yield('title')</title>
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
+    body {
+        display: flex;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
 
-        .sidebar {
-            width: 250px;
-            background-color: #343a40;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
+    .sidebar {
+        width: 233px;
+        background-color: #343a40;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
 
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
 
-        .sidebar a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            margin: 5px 0;
-            display: block;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            position: relative;
-        }
+    .sidebar a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+        margin: 5px 0;
+        display: block;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        position: relative;
+    }
 
-        .sidebar .d-flex:hover {
-            background-color: #495057;
-            border-radius: .8em;
-        }
+    .sidebar .d-flex:hover {
+        background-color: #495057;
+        border-radius: .8em;
+    }
 
-        .sidebar .d-flex:hover a,
-        .sidebar .d-flex:hover .material-symbols-outlined {
-            color: #fff;
-        }
+    .sidebar .d-flex:hover a,
+    .sidebar .d-flex:hover .material-symbols-outlined {
+        color: #fff;
+    }
 
-        .sidebar .logout {
-            background-color: #dc3545;
-            color: #fff;
-            padding: 10px 15px;
-            width: 100%;
-        }
+    .sidebar .logout {
+        background-color: #dc3545;
+        color: #fff;
+        padding: 10px 15px;
+        width: 100%;
+    }
 
-        .sidebar .logout:hover {
-            background-color: #c82333;
-        }
+    .sidebar .logout:hover {
+        background-color: #c82333;
+    }
 
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
 
-        .header {
-            background-color: #343a40;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    .header {
+        background-color: #343a40;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1.75rem;
-        }
+    .header h1 {
+        margin: 0;
+        font-size: 1.75rem;
+    }
 
-        .non {
-            text-decoration: none;
-            color: #fff;
-        }
+    .non {
+        text-decoration: none;
+        color: #fff;
+    }
 
-        .non:hover {
-            text-decoration: none;
-            color: #fff;
-        }
+    .non:hover {
+        text-decoration: none;
+        color: #fff;
+    }
     </style>
 </head>
 
@@ -115,6 +115,12 @@
                 shopping_cart
             </span>
             <a href="{{ route('cart') }}">My Cart</a>
+        </div>
+        <div class="d-flex align-items-center justify-content-start pl-2">
+            <span class="material-symbols-outlined">
+                production_quantity_limits
+            </span>
+            <a href="{{ route('myproducts') }}">My Products</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">

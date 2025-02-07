@@ -70,7 +70,7 @@ class AuthController extends Controller
                 return redirect()->route('userdash');
             }
         } else {
-            return back()->withErrors(['Invalid Credentials']);
+            return redirect()->route('login')->with('failed','Invalid Credentials');
         }
     }
 

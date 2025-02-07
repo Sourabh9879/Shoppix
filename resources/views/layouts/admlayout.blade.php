@@ -17,7 +17,7 @@
         }
 
         .sidebar {
-            width: 250px;
+            width: 233px;
             background-color: #343a40;
             color: #fff;
             display: flex;

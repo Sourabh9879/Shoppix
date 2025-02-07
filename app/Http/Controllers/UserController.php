@@ -18,4 +18,7 @@ class UserController extends Controller
     function showCart(){
         return view('user.cart');
     }
+    function myProducts(){
+        return view('user.myproducts');
+    }
 }

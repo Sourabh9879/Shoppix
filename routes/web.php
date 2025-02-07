@@ -15,17 +15,26 @@ Route::post('RegisterUser', [AuthController::class,'RegisterUser'])->name('Regis
 
 Route::get('LogoutUser', [AuthController::class,'LogoutUser'])->name('logout');
 
-// this route will return admin dashboard view
-Route::get('/admdash', [AuthController::class,'ShowAdminDash'])->name('admdash');
+// user routes
+Route::middleware([UserAuthMiddleware::class])->group(function(){
+    Route::get('/userdash', [AuthController::class,'ShowUserDash'])->name('userdash');
+    
+Route::controller(UserController::class)->group(function(){
+    Route::get('/products','showProduct')->name('userproducts');
+    Route::get('/add-product','addProduct')->name('addProduct');
+    Route::get('/my-products','myProducts')->name('myproducts');
+    Route::get('/profile','showProfile')->name('profile');
+    Route::get('/cart','showCart')->name('cart');
+    });
+});
 
-// this route will return user dashboard view
-Route::get('/userdash', [AuthController::class,'ShowUserDash'])->name('userdash')->middleware(UserAuthMiddleware::class);
-Route::get('/products',[UserController::class,'showProduct'])->name('userproducts')->middleware(UserAuthMiddleware::class);
-Route::get('/add-product',[UserController::class,'addProduct'])->name('addProduct')->middleware(UserAuthMiddleware::class);
-Route::get('/profile',[UserController::class,'showProfile'])->name('profile')->middleware(UserAuthMiddleware::class);
-Route::get('/cart',[UserController::class,'showCart'])->name('cart')->middleware(UserAuthMiddleware::class);
 
 // admin routes
-Route::get('/admin-products',[AdminController::class,'showProducts'])->name('admproducts')->middleware(AdminMiddleware::class);
-Route::get('/users',[AdminController::class,'showUsers'])->name('admuser')->middleware(AdminMiddleware::class);
+Route::middleware([AdminMiddleware::class])->group(function(){
+    Route::get('/admdash', [AuthController::class,'ShowAdminDash'])->name('admdash');
 
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/admin-products','showProducts')->name('admproducts');
+    Route::get('/users','showUsers')->name('admuser');
+    });
+});
