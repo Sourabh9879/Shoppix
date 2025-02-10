@@ -122,10 +122,10 @@ class UserController extends Controller
 
     function updateProduct(Request $request, $id){
         $request->validate([
-            'name' => 'string|max:20',
-            'category' => 'string|max:20',
-            'price' => 'numeric',
-            'desc' => 'string',
+            'name' => 'sometimes|string|max:20',
+            'category' => 'sometimes|string|max:20',
+            'price' => 'sometimes|numeric',
+            'desc' => 'sometimes|string',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:3000',
         ]);
 

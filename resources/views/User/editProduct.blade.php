@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" required>{{ $product->desc }}</textarea>
+                        <textarea class="form-control" id="desc" name="desc" required>{{ $product->desc }}</textarea>
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary">Save</button>
