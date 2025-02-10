@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
+use App\Models\Cart;
 
 class UserController extends Controller
 {
     function showProduct(){
-        return view('user.products');
+        $products = Product::all();
+        return view('user.products', compact('products'));
     }
     function addProduct(){
         return view('user.addProduct');
@@ -67,10 +70,114 @@ class UserController extends Controller
     }
 
     function showCart(){
-        return view('user.cart');
+        $cartItems = Cart::where('user_id', session('user_id'))->get();
+        return view('user.cart', compact('cartItems'));
     }
 
     function myProducts(){
-        return view('user.myproducts');
+        $products = Product::where('user_id', session('user_id'))->get();
+        return view('user.myproducts', compact('products'));
     }
+
+    function storeProduct(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:20',
+            'category' => 'required|string|max:20',
+            'price' => 'required|numeric',
+            'desc' => 'required|string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
+        ]);
+
+        $path = $request->file('image')->store('product_images', 'public');
+        Product::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'price' => $request->price,
+            'desc' => $request->desc,
+            'image' => $path,
+            'user_id' =>session('user_id'),
+            'user_name' => session('name'),
+        ]);
+
+        return redirect()->route('myproducts')->with('success', 'Product added successfully');
+    }
+
+    function deleteProduct($id){
+        $product = Product::find($id);
+        if(!$product){
+            return redirect()->route('myproducts')->with('error', 'Product not found');
+        }
+        if ($product->image) {
+            Storage::delete('public/' . $product->image);
+        }
+        $product->delete();
+        return redirect()->route('myproducts')->with('success', 'Product deleted successfully');
+
+    }
+
+    function editProduct($id){
+        $product = Product::find($id);
+        return view('user.editProduct', compact('product'));
+    }
+
+    function updateProduct(Request $request, $id){
+        $request->validate([
+            'name' => 'string|max:20',
+            'category' => 'string|max:20',
+            'price' => 'numeric',
+            'desc' => 'string',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:3000',
+        ]);
+
+        $product = Product::find($id);
+        if ($request->has('name')) {
+            $product->name = $request->name;
+        }
+        if ($request->has('category')) {
+            $product->category = $request->category;
+        }
+        if ($request->has('price')) {
+            $product->price = $request->price;
+        }
+        if ($request->has('desc')) {
+            $product->desc = $request->desc;
+        }
+        if ($request->hasFile('image')) {
+            if ($product->image) {
+                Storage::delete('public/' . $product->image);
+            }
+            $path = $request->file('image')->store('product_images', 'public');
+            $product->image = $path;
+        }
+
+        $product->save();
+
+        return redirect()->route('myproducts')->with('success', 'Product updated successfully');
+    }
+
+    function viewProduct($id){
+        $product = Product::find($id);
+        return view('user.viewProduct', compact('product'));
+    }
+
+    function addToCart($id){
+        $product = Product::find($id);
+        $cartItem = Cart::where('user_id',session('user_id'))->where('product_id', $product->id)->first();
+
+        if ($cartItem) {
+            return redirect()->route('cart')->with('info', 'Product is already in your cart.');
+        }
+
+        Cart::create([
+            'user_id' => session('user_id'),
+            'product_id' => $product->id,
+        ]);
+        return redirect()->route('cart')->with('success', 'Product added to cart successfully');
+    }
+    function removeFromCart($id){
+        $cartItem = Cart::find($id);
+        $cartItem->delete();
+        return redirect()->route('cart')->with('success', 'Product removed from cart successfully');
+    }
+
 }

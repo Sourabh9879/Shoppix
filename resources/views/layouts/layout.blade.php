@@ -114,7 +114,7 @@
             <span class="material-symbols-outlined">
                 shopping_cart
             </span>
-            <a href="{{ route('cart') }}">My Cart</a>
+            <a href="{{ route('cart') }}">Cart</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">
