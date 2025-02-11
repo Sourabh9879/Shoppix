@@ -80,26 +80,41 @@ class UserController extends Controller
     }
 
     function storeProduct(Request $request){
-        $request->validate([
-            'name' => 'required|string|max:20',
-            'category' => 'required|string|max:20',
-            'price' => 'required|numeric',
-            'desc' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3000',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:20',
+                'category' => 'required|string|max:20',
+                'price' => 'required|numeric',
+                'desc' => 'required|string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3000',
+            ]);
 
-        $path = $request->file('image')->store('product_images', 'public');
-        Product::create([
-            'name' => $request->name,
-            'category' => $request->category,
-            'price' => $request->price,
-            'desc' => $request->desc,
-            'image' => $path,
-            'user_id' =>session('user_id'),
-            'user_name' => session('name'),
-        ]);
+            if (!$request->hasFile('image')) {
+                return redirect()->back()->with('error', 'No image file uploaded');
+            }
 
-        return redirect()->route('myproducts')->with('success', 'Product added successfully');
+            $file = $request->file('image');
+            if (!$file->isValid()) {
+                return redirect()->back()->with('error', 'Invalid image file');
+            }
+
+            $path = $request->file('image')->store('product_images', 'public');
+            
+            Product::create([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'desc' => $request->desc,
+                'image' => $path,
+                'user_id' => session('user_id'),
+                'user_name' => session('name'),
+            ]);
+
+            return redirect()->route('myproducts')->with('success', 'Product added successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Error creating product: ' . $e->getMessage());
+        }
     }
 
     function deleteProduct($id){
@@ -113,11 +128,6 @@ class UserController extends Controller
         $product->delete();
         return redirect()->route('myproducts')->with('success', 'Product deleted successfully');
 
-    }
-
-    function editProduct($id){
-        $product = Product::find($id);
-        return view('user.editProduct', compact('product'));
     }
 
     function updateProduct(Request $request, $id){
@@ -153,11 +163,6 @@ class UserController extends Controller
         $product->save();
 
         return redirect()->route('myproducts')->with('success', 'Product updated successfully');
-    }
-
-    function viewProduct($id){
-        $product = Product::find($id);
-        return view('user.viewProduct', compact('product'));
     }
 
     function addToCart($id){

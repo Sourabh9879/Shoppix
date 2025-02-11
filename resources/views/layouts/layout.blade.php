@@ -100,7 +100,7 @@
         <h4>User Dashboard</h4>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">home</span>
-            <a href="{{ route('userdash') }}">Dashboard</a>
+            <a href="{{ route('myproducts') }}">Dashboard</a>
         </div>
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">format_list_bulleted</span>
@@ -116,12 +116,12 @@
             </span>
             <a href="{{ route('cart') }}">Cart</a>
         </div>
-        <div class="d-flex align-items-center justify-content-start pl-2">
+        <!-- <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">
                 production_quantity_limits
             </span>
             <a href="{{ route('myproducts') }}">My Products</a>
-        </div>
+        </div> -->
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">
                 manage_accounts

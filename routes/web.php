@@ -27,10 +27,8 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::get('/profile/{id}', 'showProfile')->name('profile');
         Route::put('/profile/{id}', 'updateProfile')->name('updateProfile');
         Route::get('/cart', 'showCart')->name('cart');
-        Route::get('/edit-product/{id}', 'editProduct')->name('editProduct');
         Route::put('/update-product/{id}', 'updateProduct')->name('updateProduct');
         Route::delete('/delete-product/{id}', 'deleteProduct')->name('deleteProduct');
-        Route::get('/view-product/{id}', 'viewProduct')->name('viewProduct');
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
     });
@@ -39,8 +37,9 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
 // Admin routes with admin middleware
 Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admdash', [AuthController::class, 'ShowAdminDash'])->name('admdash');
-
+    
     Route::controller(AdminController::class)->group(function () {
+        Route::get('/admprofile/{id}', 'showadmProfile')->name('admprofile');
         Route::get('/admin-products', 'showProducts')->name('admproducts');
         Route::get('/users', 'showUsers')->name('admuser');
     });

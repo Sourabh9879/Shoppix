@@ -9,45 +9,48 @@
 @section('content')
 <div class="container">
     <style>
-        .card {
-            border: 2px solid #808080;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            height: 100%;
-        }
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        height: 100%;
+    }
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-        .card-img-top {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-        }
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+    }
 
-        .card-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-        }
+    .card-body {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .card-title {
-            font-size: 1.25em;
-            font-weight: bold;
-        }
+    .card-title {
+        font-size: 1.25em;
+        font-weight: bold;
+    }
 
-        .card-text {
-            font-size: 1em;
-            color: #757575;
-            flex-grow: 1;
-        }
+    .card-text {
+        font-size: 1em;
+        color: #757575;
+        flex-grow: 1;
+    }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
+    .price {
+        color: #B12704;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
+    .list-group-item {
+        background-color: #f8f9fa;
+        border-color: #e9ecef;
+    }
     </style>
     <div class="row">
         @foreach($products as $product)
@@ -56,7 +59,7 @@
                 <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>
-                    <p class="card-text">₹{{ $product->price }}</p>
+                    <p class="card-text price">₹{{ $product->price }}</p>
                     <p class="card-text">{{ Str::limit($product->desc, 100) }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -65,7 +68,10 @@
                 </ul>
                 <div class="card-body">
                     @if($product->user_id !== session('user_id'))
-                        <a href="{{ route('viewProduct', $product->id) }}" class="card-link btn btn-primary">View</a>
+                    <form action="{{ route('addToCart', $product->id) }}" method="POST" class="add-to-cart">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
                     @endif
                 </div>
             </div>
