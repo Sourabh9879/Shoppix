@@ -68,7 +68,7 @@ class AuthController extends Controller
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {
-                return redirect()->route('userdash');
+                return redirect()->route('myproducts');
             }
         } else {
             return redirect()->route('login')->with('failed','Invalid Credentials');

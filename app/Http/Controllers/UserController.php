@@ -119,11 +119,8 @@ class UserController extends Controller
 
     function deleteProduct($id){
         $product = Product::find($id);
-        if(!$product){
-            return redirect()->route('myproducts')->with('error', 'Product not found');
-        }
-        if ($product->image) {
-            Storage::delete('public/' . $product->image);
+        if($product->image){
+            Storage::disk('public')->delete($product->image);
         }
         $product->delete();
         return redirect()->route('myproducts')->with('success', 'Product deleted successfully');
