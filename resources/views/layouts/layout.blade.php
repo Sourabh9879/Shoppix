@@ -106,10 +106,12 @@
             <span class="material-symbols-outlined">format_list_bulleted</span>
             <a href="{{ route('userproducts') }}">Products</a>
         </div>
+        @if(session('status') === 1)
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">add_task</span>
             <a href="{{ route('addProduct') }}">Add Product</a>
         </div>
+        @endif
         <div class="d-flex align-items-center justify-content-start pl-2">
             <span class="material-symbols-outlined">
                 shopping_cart
