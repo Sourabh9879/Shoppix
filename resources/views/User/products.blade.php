@@ -14,6 +14,7 @@
         transition: transform 0.2s;
         height: 100%;
     }
+
     .card:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
@@ -68,10 +69,14 @@
                 </ul>
                 <div class="card-body">
                     @if($product->user_id !== session('user_id'))
+                    @if(session('status') == true)
                     <form action="{{ route('addToCart', $product->id) }}" method="POST" class="add-to-cart">
                         @csrf
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                     </form>
+                    @else
+                    <p class="text-danger font-weight-bold">You are blocked. Contact admin.</p>
+                    @endif
                     @endif
                 </div>
             </div>

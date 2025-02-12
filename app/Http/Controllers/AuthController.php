@@ -61,10 +61,14 @@ class AuthController extends Controller
     
         $user = User::where('email', $data->email)->first();
         if($user && Hash::check($data->password, $user->password)){
-            session()->put('name', $user->name);
-            session()->put('user_id', $user->id);
-            session()->put('role', $user->role);
-            session(['user_image' => $user->image]);
+            session([
+                'name' => $user->name,
+                'user_id' => $user->id,
+                'role' => $user->role,
+                'status' => $user->status,
+                'user_image' => $user->image
+            ]);
+            
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {
