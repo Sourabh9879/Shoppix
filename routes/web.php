@@ -44,5 +44,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::delete('/deleteProduct/{id}', 'DeleteProduct')->name('DeleteProduct');
         Route::get('/users', 'showUsers')->name('admuser');
         Route::delete('deleteUser/{id}', 'deleteUser')->name('deleteUser');
+        Route::get('BlockUser/{id}', 'BlockUser')->name('BlockUser');
+        Route::get('UnBlockUser/{id}', 'UnBlockUser')->name('UnBlockUser');
     });
 });

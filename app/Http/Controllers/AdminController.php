@@ -36,4 +36,17 @@ class AdminController extends Controller
         $user->delete();
         return redirect('users');
     }
+
+    function BlockUser($id){
+            $user = User::findorFail($id);
+            $user->status = false;
+            $user->save();
+            return redirect('users');
+    }
+    function UnBlockUser($id){
+            $user = User::findorFail($id);
+            $user->status = true;
+            $user->save();
+            return redirect('users');
+    }
 }
