@@ -40,7 +40,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admprofile/{id}', 'showadmProfile')->name('admprofile');
-        Route::put('/profile/{id}', 'updateProfile')->name('upadmprofile');
+        Route::put('/admprofile/{id}', 'updateProfile')->name('upadmprofile');
         Route::get('/admin-products', 'showProducts')->name('admproducts');
         Route::delete('/deleteProduct/{id}', 'DeleteProduct')->name('DeleteProduct');
         Route::get('/users', 'showUsers')->name('admuser');
