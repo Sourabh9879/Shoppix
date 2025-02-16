@@ -7,5 +7,8 @@
 @section('name', session('name'))
 
 @section('content')
-    <p>This is the Admin dashboard area.</p>
+    <div class="card shadow-sm p-4">
+        <h2 class="text-center">Admin Dashboard</h2>
+        <p class="text-muted text-center">Manage your users, products, and more.</p>
+    </div>
 @endsection
