@@ -19,8 +19,12 @@
                 @csrf
 
                 <div class="mb-3">
+                    <!-- Image Preview Container -->
+                    <div class="mt-4 text-center" id="imagePreview" style="display: none;">
+                        <img src="" alt="Preview" class="img-fluid" style="max-height: 200px; object-fit: contain;">
+                    </div>
                     <label for="image" class="form-label fw-bold">Product Image</label>
-                    <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg" required>
+                    <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg" required onchange="previewImage(this)">
                 </div>
 
                 <div class="mb-3">
@@ -58,4 +62,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Add this script at the bottom of your content section -->
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const previewImg = preview.querySelector('img');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.src = '';
+                preview.style.display = 'none';
+            }
+        }
+    </script>
 @endsection

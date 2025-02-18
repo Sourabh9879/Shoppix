@@ -174,12 +174,12 @@ class UserController extends Controller
             'user_id' => session('user_id'),
             'product_id' => $product->id,
         ]);
-        return redirect()->route('cart')->with('success', 'Product added to cart successfully');
+        return redirect()->route('cart')->with('success', 'Product added to wishlist successfully');
     }
     function removeFromCart($id){
         $cartItem = Cart::find($id);
         $cartItem->delete();
-        return redirect()->route('cart')->with('success', 'Product removed from cart successfully');
+        return redirect()->route('cart')->with('success', 'Product removed from wishlist successfully');
     }
 
 }

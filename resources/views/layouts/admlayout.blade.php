@@ -24,7 +24,7 @@
         /* Sidebar */
         .sidebar {
             width: 250px;
-            background-color: #212529;
+            background-color: #1f2937;
             color: white;
             display: flex;
             flex-direction: column;
@@ -38,25 +38,28 @@
             margin-bottom: 20px;
             font-size: 1.5rem;
             font-weight: bold;
+            color: #e5e7eb;
         }
 
         .sidebar a {
-            color: white;
+            color: #e5e7eb;
             text-decoration: none;
             padding: 12px 15px;
             display: flex;
             align-items: center;
             border-radius: 5px;
             transition: background 0.3s ease-in-out;
+            font-size: 1rem;
         }
 
         .sidebar a:hover {
-            background-color: #495057;
+            background-color: #374151;
         }
 
         .sidebar span {
             margin-right: 10px;
             font-size: 1.4rem;
+            color: #9ca3af;
         }
 
         /* Content */
@@ -67,7 +70,7 @@
 
         /* Header */
         .header {
-            background-color: #212529;
+            background-color: #1f2937;
             color: white;
             padding: 15px 20px;
             border-radius: 5px;

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Product;
+use App\Models\Cart;
 
 class AuthController extends Controller
 {
@@ -14,10 +16,45 @@ class AuthController extends Controller
         return view('login');
     }
     function ShowAdminDash(){
-        return view('Admin.admdash');
+
+        $totalUsers = User::where('role', 'user')->count();
+        
+        $totalProducts = Product::count();
+        
+        $activeUsers = User::where('role', 'user')
+                          ->where('status', 1)
+                          ->count();
+        
+        $blockedUsers = User::where('role', 'user')
+                           ->where('status', 0)
+                           ->count();
+        
+        $products = Product::latest()
+                          ->take(5)
+                          ->get();
+
+        return view('Admin.admdash', compact(
+            'totalUsers',
+            'totalProducts',
+            'activeUsers',
+            'blockedUsers',
+            'products'
+        ));
     }
     function ShowUserDash(){
-        return view('User.userdash');
+        $userId = session('user_id');
+        
+        // Get counts
+        $myProducts = Product::where('user_id', $userId)->count();
+        $cartItems = Cart::where('user_id', $userId)->count();
+        $totalProducts = Product::count();
+        
+        // Get recent products
+        $recentProducts = Product::latest()
+                                ->take(5)
+                                ->get();
+        
+        return view('User.userdash', compact('myProducts', 'cartItems', 'totalProducts', 'recentProducts'));
     }
 
     function RegisterUser(Request $data){
@@ -72,7 +109,7 @@ class AuthController extends Controller
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {
-                return redirect()->route('myproducts');
+                return redirect()->route('userdash');
             }
         } else {
             return redirect()->route('login')->with('failed','Invalid Credentials');

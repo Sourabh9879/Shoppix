@@ -87,4 +87,9 @@ class AdminController extends Controller
         return redirect()->route('profile', ['id' => $id])->with('success', 'User updated successfully');
     }
 
+    function ShowAdminDash(){
+        // Get total users (excluding admin)
+      
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\UserAuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', [AuthController::class, 'ShowLogin'])->name('login');
 Route::post('LoginUser', [AuthController::class, 'LoginUser'])->name('LoginUser');
@@ -49,3 +50,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('UnBlockUser/{id}', 'UnBlockUser')->name('UnBlockUser');
     });
 });
+
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
+
+Route::post('/send-offer/{product}', [ProductController::class, 'sendOffer'])->name('send.offer');
