@@ -353,7 +353,7 @@
         <a href="{{ Route('userdash') }}"><h4>Dashboard</h4></a>
 
         <div class="d-flex">
-            <span class="material-symbols-outlined">home</span>
+            <span class="material-symbols-outlined">inventory</span>
             <a href="{{ route('myproducts') }}">My Products</a>
         </div>
 

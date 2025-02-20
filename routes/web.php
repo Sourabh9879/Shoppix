@@ -33,6 +33,9 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
     });
+
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
+    Route::post('/send-offer/{product}', [ProductController::class, 'sendOffer'])->name('send.offer');
 });
 
 // Admin routes with admin middleware
@@ -50,7 +53,3 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('UnBlockUser/{id}', 'UnBlockUser')->name('UnBlockUser');
     });
 });
-
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
-
-Route::post('/send-offer/{product}', [ProductController::class, 'sendOffer'])->name('send.offer');

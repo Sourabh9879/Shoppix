@@ -90,7 +90,7 @@
 
                     <!-- Right Column -->
                     <div class="col-7">
-                        <form id="offerForm" action="{{ route('send.offer', $product->id) }}" method="POST">
+                        <form id="offerForm" action="" method="POST" onsubmit="return false;">
                             @csrf
                             <div class="row g-3">
                                 <div class="col-md-6">
