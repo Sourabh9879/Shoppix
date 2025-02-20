@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Product')
+@section('title', 'Sell')
 
-@section('heading', 'Add Product')
+@section('heading', 'Sell')
 
 @section('name', session('name'))
 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="price" class="form-label fw-bold">Price (₹)</label>
+                    <label for="price" class="form-label fw-bold">Set A Price (₹)</label>
                     <input type="number" class="form-control" id="price" name="price" required>
                 </div>
 

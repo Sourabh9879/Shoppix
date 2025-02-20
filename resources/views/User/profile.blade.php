@@ -13,13 +13,13 @@
             
             <!-- Success & Error Messages -->
             @if (session('success'))
-                <div class="alert alert-success d-flex align-items-center">
+                <div class="alert alert-success d-flex align-items-center" id="alertMessage">
                     <span class="material-symbols-outlined me-2">check_circle</span>
                     {{ session('success') }}
                 </div>
             @endif
             @if (session('failed'))
-                <div class="alert alert-danger d-flex align-items-center">
+                <div class="alert alert-danger d-flex align-items-center" id="alertMessage">
                     <span class="material-symbols-outlined me-2">warning</span>
                     {{ session('failed') }}
                 </div>
@@ -88,5 +88,18 @@
             reader.readAsDataURL(event.target.files[0]);
         });
     </script>
+    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            let alertBox = document.getElementById("alertMessage");
+            if (alertBox) {
+                alertBox.style.transition = "opacity 0.5s";
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
+            }
+        }, 3000); // 3 seconds delay
+    });
+</script>
 
 @endsection

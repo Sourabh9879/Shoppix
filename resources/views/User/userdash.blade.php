@@ -28,7 +28,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-muted mb-2">Cart Items</h6>
+                            <h6 class="text-muted mb-2">Wishlist Items</h6>
                             <h3 class="mb-0">{{ $cartItems ?? 0 }}</h3>
                         </div>
                         <span class="material-symbols-outlined text-success fs-1">shopping_cart</span>
@@ -76,7 +76,7 @@
                         @if(session('status') === 1)
                         <a href="{{ route('addProduct') }}" class="btn btn-primary">
                             <span class="material-symbols-outlined align-middle me-1">add_circle</span>
-                            Add Product
+                            Sell
                         </a>
                         @endif
                         <a href="{{ route('cart') }}" class="btn btn-success">

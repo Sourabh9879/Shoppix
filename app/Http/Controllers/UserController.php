@@ -11,7 +11,7 @@ use App\Models\Cart;
 class UserController extends Controller
 {
     function showProduct(){
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
         return view('user.products', compact('products'));
     }
     function addProduct(){
@@ -180,6 +180,10 @@ class UserController extends Controller
         $cartItem = Cart::find($id);
         $cartItem->delete();
         return redirect()->route('cart')->with('success', 'Product removed from wishlist successfully');
+    }
+
+    function showMessage(){
+        return view('user.message');
     }
 
 }

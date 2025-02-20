@@ -85,6 +85,10 @@
                                  style="height: 120px; object-fit: contain;">
                             <h6 class="mb-2">{{ $product->name }}</h6>
                             <p class="mb-0 text-primary fw-bold fs-5">₹{{ $product->price }}</p>
+                            <span class="text-muted small">
+                                <span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">person</span>
+                                {{ $product->user_name }}
+                            </span>
                         </div>
                     </div>
 

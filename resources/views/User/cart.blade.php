@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
     @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success" id="alertMessage">{{ session('success') }}</div>
     @endif
 
     @if($cartItems->isEmpty())
@@ -58,4 +58,17 @@
     </div>
     @endif
 </div>
+{{-- Hide errors automatic --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            let alertBox = document.getElementById("alertMessage");
+            if (alertBox) {
+                alertBox.style.transition = "opacity 0.5s";
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
+            }
+        }, 3000); // 3 seconds delay
+    });
+</script>
 @endsection
