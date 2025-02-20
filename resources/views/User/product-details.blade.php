@@ -5,6 +5,9 @@
 @section('name', session('name'))
 
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success" id="alertMessage">{{ session('success') }}</div>
+@endif
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -44,10 +47,14 @@
                     <div class="d-grid gap-2">
                         @if($product->user_id !== session('user_id'))
                             @if(session('status') == true)
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offerModal">
-                                    <span class="material-symbols-outlined align-middle me-2">handshake</span>
-                                    Make offer
-                                </button>
+                                @if($offer)
+                                    <div class="text-center text-warning">Pending</div>
+                                @else
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offerModal">
+                                        <span class="material-symbols-outlined align-middle me-2">handshake</span>
+                                        Make offer
+                                    </button>
+                                @endif
                                 <form action="{{ route('addToCart', $product->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-primary w-100">
@@ -94,20 +101,23 @@
 
                     <!-- Right Column -->
                     <div class="col-7">
-                        <form id="offerForm" action="" method="POST" onsubmit="return false;">
+                        <form id="offerForm" action="{{ route('storeOffer') }}" method="POST">
                             @csrf
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control" value="{{ session('name') }}" readonly>
+                                    <input type="hidden" name="name" value="{{ session('name') }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Phone</label>
                                     <input type="tel" class="form-control" value="{{ $user->phone }}" readonly>
+                                    <input type="hidden" name="phone" value="{{ $user->phone }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" value="{{ $user->email }}" readonly>
+                                    <input type="hidden" name="email" value="{{ $user->email }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Offer Amount (₹)</label>
@@ -117,6 +127,11 @@
                                     <label class="form-label">Message</label>
                                     <textarea name="message" class="form-control" rows="2" placeholder="Write a message..."></textarea>
                                 </div>
+                                <!-- Hidden fields for seller's information -->
+                                <input type="hidden" name="seller_name" value="{{ $product->user_name }}">
+                                <input type="hidden" name="seller_id" value="{{ $product->user_id }}">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="user_id" value="{{ session('user_id') }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -147,4 +162,16 @@
     padding: 0.5rem 1.5rem;
 }
 </style>
-@endsection 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            let alertBox = document.getElementById("alertMessage");
+            if (alertBox) {
+                alertBox.style.transition = "opacity 0.5s";
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
+            }
+        }, 3000); // 3 seconds delay
+    });
+</script>
+@endsection

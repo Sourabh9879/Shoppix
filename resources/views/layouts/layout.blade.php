@@ -12,8 +12,9 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-    <style>
-    body {
+<style>
+
+body {
         display: flex;
         min-height: 100vh;
         margin: 0;
@@ -346,11 +347,10 @@
             padding: 16px 0;
         }
     }
-    </style>
+</style>
 </head>
 
 <body>
-    <!-- Sidebar -->
     <div class="sidebar">
         <a href="{{ Route('userdash') }}">
             <h4>Dashboard</h4>
@@ -383,8 +383,10 @@
             <a href="{{ route('profile',['id' => session('user_id')]) }}">Profile</a>
         </div>
         <div class="d-flex">
-            <span class="material-symbols-outlined">chat</span>
-            <a href="{{ route('message') }}">Messages</a>
+            <span class="material-symbols-outlined">
+                bottom_panel_close
+            </span>
+            <a href="{{ route('offer') }}">Offers</a>
         </div>
         <div class="d-flex">
             <a href="{{ route('logout') }}" class="logout">

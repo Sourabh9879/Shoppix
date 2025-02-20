@@ -12,8 +12,12 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $user = User::find(session('user_id')); // Get current user data
-        return view('User.product-details', compact('product', 'user'));
+        $user = User::find(session('user_id')); 
+        $offer = Offer::where('product_id', $id)
+        ->where('user_id', $user->id)
+        ->where('status', 'pending')
+        ->first();
+        return view('User.product-details', compact('product', 'user', 'offer'));
     }
 
 } 

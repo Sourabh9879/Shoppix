@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\UserAuthMiddleware;
@@ -32,11 +33,11 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::delete('/delete-product/{id}', 'deleteProduct')->name('deleteProduct');
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
-        Route::get('/message', 'showMessage')->name('message');
+        Route::get('/offer', 'showOffer')->name('offer');
     });
 
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
-    Route::post('/send-offer/{product}', [ProductController::class, 'sendOffer'])->name('send.offer');
+    Route::post('/store-offer', [OfferController::class, 'store'])->name('storeOffer');
 });
 
 // Admin routes with admin middleware
