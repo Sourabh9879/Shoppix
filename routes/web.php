@@ -41,13 +41,20 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::get('/message', 'showMessage')->name('message');
         Route::get('/accept/{id}', 'Accept')->name('accept');
         Route::get('/reject/{id}', 'Reject')->name('reject');
+        Route::get('/deleteoffer/{id}', 'DeleteOffer')->name('deleteOffer');
 
     });
-    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('/product/{id}','show')->name('product.details');
+        Route::get('/search','search')->name('search');
+
+    });
+   
 });
 
 // Admin routes with admin middleware
 Route::middleware([AdminMiddleware::class])->group(function () {
+
     Route::get('/admdash', [AuthController::class, 'ShowAdminDash'])->name('admdash');
     
     Route::controller(AdminController::class)->group(function () {

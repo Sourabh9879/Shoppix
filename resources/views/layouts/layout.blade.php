@@ -373,7 +373,9 @@
         @endif
 
         <div class="d-flex">
-            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="material-symbols-outlined">
+                favorite
+            </span>
             <a href="{{ route('cart') }}">Wishlist</a>
         </div>
 

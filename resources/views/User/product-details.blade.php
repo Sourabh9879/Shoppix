@@ -47,8 +47,10 @@
                     <div class="d-grid gap-2">
                         @if($product->user_id !== session('user_id'))
                             @if(session('status') == true)
-                                @if($offer)
+                                @if(isset($offer) && $offer->status == 'pending')
                                     <div class="text-center text-warning">Pending</div>
+                                @elseif(isset($offer) && $offer->status == 'accepted')
+                                    <div class="text-center text-success">Accepted</div>
                                 @else
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offerModal">
                                         <span class="material-symbols-outlined align-middle me-2">handshake</span>
@@ -58,7 +60,7 @@
                                 <form action="{{ route('addToCart', $product->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-primary w-100">
-                                        <span class="material-symbols-outlined align-middle me-2">shopping_cart</span>
+                                        <span class="material-symbols-outlined align-middle me-2">favorite</span>
                                         Add to Wishlist
                                     </button>
                                 </form>

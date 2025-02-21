@@ -35,6 +35,7 @@
                             <th>Original Price</th>
                             <th>Date</th>
                             <th class="text-center">Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +62,9 @@
                                 <span class="badge bg-danger">Rejected</span>
                                 @endif
                             </td>
+                            @if($offer->status == 'pending')
+                            <td> <a href="{{ route('deleteOffer',['id' => $offer->product_id ]) }}" class="btn btn-danger">Delete</a></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

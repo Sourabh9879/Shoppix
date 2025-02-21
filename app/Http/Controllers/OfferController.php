@@ -64,5 +64,12 @@ class OfferController extends Controller
         return redirect('message');
 
     }
+
+    function DeleteOffer($id){
+        $product = Offer::where('product_id',$id);
+        $product->delete();
+
+        return redirect('offer');
+    }
     
 }

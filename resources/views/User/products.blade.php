@@ -7,6 +7,35 @@
 @section('name', session('name'))
 
 @section('content')
+<style>
+    .search-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    .search-input {
+        padding: 10px;
+        font-size: 16px;
+        width: 400px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        margin-left: 400px;
+    }
+</style>
+<form action="{{ route('search') }}" method="GET">
+    <input type="text" name="query" class="search-input" placeholder="Search products...">
+    <button type="submit" class="search-button" >Search</button>
+</form>
+
 <div class="container">
     <div class="row g-4">
         @foreach($products as $product)
@@ -35,7 +64,7 @@
                                 <form action="{{ route('addToCart', $product->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary w-100">
-                                        <span class="material-symbols-outlined align-middle me-1">shopping_cart</span>
+                                        <span class="material-symbols-outlined align-middle me-1">favorite</span>
                                         Add to Wishlist
                                     </button>
                                 </form>

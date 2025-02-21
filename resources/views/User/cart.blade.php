@@ -14,7 +14,7 @@
 
     @if($cartItems->isEmpty())
     <div class="text-center py-5">
-        <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">shopping_cart</span>
+        <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">favorite</span>
         <h3 class="mt-3">Your Wishlist is empty</h3>
         <p class="text-muted">Browse products and add items to your Wishlist</p>
         <a href="{{ route('userproducts') }}" class="btn btn-primary mt-3">Browse Products</a>
@@ -58,7 +58,6 @@
     </div>
     @endif
 </div>
-{{-- Hide errors automatic --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
