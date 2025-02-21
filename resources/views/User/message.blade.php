@@ -51,8 +51,8 @@
                             <td>{{ \Carbon\Carbon::parse($offer->created_at)->format('d M Y') }}</td>
                             <td class="text-center">
                             @if($offer->status == 'pending')
-                            <button class="btn btn-primary">Accept</button>
-                            <button class="btn btn-danger">Reject</button>
+                           <a href="{{ route('accept',['id' => $offer->product_id ]) }}" class="btn btn-primary">Accept</a>
+                           <a href="{{ route('reject',['id' => $offer->product_id ]) }}" class="btn btn-danger">Reject</a>
                                 @elseif($offer->status == 'accepted')
                                     <span class="badge bg-success">Accepted</span>
                                 @else

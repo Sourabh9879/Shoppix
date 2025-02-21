@@ -39,6 +39,8 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::post('/store-offer', 'store')->name('storeOffer');
         Route::get('/offer', 'showOffer')->name('offer');
         Route::get('/message', 'showMessage')->name('message');
+        Route::get('/accept/{id}', 'Accept')->name('accept');
+        Route::get('/reject/{id}', 'Reject')->name('reject');
 
     });
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
