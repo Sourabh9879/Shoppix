@@ -57,7 +57,8 @@
                             <h6 class="text-muted mb-2">Status</h6>
                             <h3 class="mb-0">{{ session('status') ? 'Active' : 'Blocked' }}</h3>
                         </div>
-                        <span class="material-symbols-outlined {{ session('status') ? 'text-success' : 'text-danger' }} fs-1">
+                        <span
+                            class="material-symbols-outlined {{ session('status') ? 'text-success' : 'text-danger' }} fs-1">
                             {{ session('status') ? 'verified' : 'gpp_bad' }}
                         </span>
                     </div>
@@ -86,6 +87,12 @@
                         <a href="{{ route('userproducts') }}" class="btn btn-info text-white">
                             <span class="material-symbols-outlined align-middle me-1">store</span>
                             Browse Products
+                        </a>
+                        <a href="{{ route('message') }}" class="btn btn-secondary text-white">
+                            <span class="material-symbols-outlined align-middle me-1">
+                                chat
+                            </span>
+                            Show Messages
                         </a>
                     </div>
                 </div>
@@ -118,10 +125,9 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('storage/' . $product->image) }}" 
-                                                 alt="{{ $product->name }}" 
-                                                 class="rounded me-2"
-                                                 style="width: 80px; height: 80px; object-fit: cover;">
+                                            <img src="{{ asset('storage/' . $product->image) }}"
+                                                alt="{{ $product->name }}" class="rounded me-2"
+                                                style="width: 80px; height: 80px; object-fit: cover;">
                                             <span>{{ $product->name }}</span>
                                         </div>
                                     </td>
@@ -143,25 +149,25 @@
 </div>
 
 <style>
-    .stat-card {
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        margin-bottom: 1rem;
-    }
-    
-    .table img {
-        border: 1px solid #eee;
-    }
-    
-    .btn .material-symbols-outlined {
-        font-size: 1.2rem;
-    }
-    
-    .card {
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+.stat-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.table img {
+    border: 1px solid #eee;
+}
+
+.btn .material-symbols-outlined {
+    font-size: 1.2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 </style>
 @endsection

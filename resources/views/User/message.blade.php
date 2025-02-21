@@ -10,12 +10,20 @@
     padding: 8px 12px;
     font-weight: 500;
 }
-.table > :not(caption) > * > * {
+
+.table> :not(caption)>*>* {
     padding: 1rem;
 }
+
 .card:hover {
-    transform:none !important;
-    transition:none !important;
+    transform: none !important;
+    transition: none !important;
+}
+.abc{
+    width:100px;
+    margin-left:20px;
+}.badge{
+    font-size:1em;
 }
 </style>
 <div class="container">
@@ -25,6 +33,7 @@
                 <table class="table">
                     <thead class="table-dark">
                         <tr>
+                        <th>Sr No.</th>
                             <th>Product</th>
                             <th>Customer Name</th>
                             <th>Requested Price</th>
@@ -34,14 +43,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($offers ?? [] as $offer)
+                        @foreach($offers as $index => $offer)
                         <tr class="align-middle">
+                        <td>{{ $index + 1 }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/' . $offer->product_image) }}" 
-                                         alt="Product Image"
-                                         class="rounded me-2"
-                                         style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $offer->product_image) }}" alt="Product Image"
+                                        class="rounded me-2" style="width: 80px; height: 80px; object-fit: cover;">
                                     <span>{{ $offer->product_name }}</span>
                                 </div>
                             </td>
@@ -50,28 +58,62 @@
                             <td class="text-primary">₹{{ $offer->price }}</td>
                             <td>{{ \Carbon\Carbon::parse($offer->created_at)->format('d M Y') }}</td>
                             <td class="text-center">
-                            @if($offer->status == 'pending')
-                           <a href="{{ route('accept',['id' => $offer->product_id ]) }}" class="btn btn-primary">Accept</a>
-                           <a href="{{ route('reject',['id' => $offer->product_id ]) }}" class="btn btn-danger">Reject</a>
+                                @if($offer->status == 'pending')
+                                <a href="{{ route('accept',['id' => $offer->product_id ]) }}"
+                                    class="btn btn-primary">Accept</a>
+                                <a href="{{ route('reject',['id' => $offer->product_id ]) }}"
+                                    class="btn btn-danger">Reject</a>
                                 @elseif($offer->status == 'accepted')
-                                    <span class="badge bg-success">Accepted</span>
+                                <span class="badge bg-success">Accepted</span>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Edit
+                                </button>
                                 @else
-                                    <span class="badge bg-danger">Rejected</span>
+                                <span class="badge bg-danger">Rejected</span>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Edit
+                                </button>
                                 @endif
-                             
+
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            
+
             @if(empty($offers) || count($offers) == 0)
             <div class="text-center py-5">
                 <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">mail</span>
                 <h3 class="mt-3">No Message Yet</h3>
             </div>
             @endif
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Response</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @if(isset($offer) && $offer->status == 'rejected')
+            <a href="{{ route('accept',['id' => $offer->product_id ]) }}" class="btn btn-primary abc">Accept</a>
+            @elseif(isset($offer))
+            <a href="{{ route('reject',['id' => $offer->product_id ]) }}" class="btn btn-danger abc">Reject</a>
+            @endif
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

@@ -9,13 +9,16 @@
 .badge {
     padding: 8px 12px;
     font-weight: 500;
+    font-size: 1em;
 }
-.table > :not(caption) > * > * {
+
+.table> :not(caption)>*>* {
     padding: 1rem;
 }
+
 .card:hover {
-    transform:none !important;
-    transition:none !important;
+    transform: none !important;
+    transition: none !important;
 }
 </style>
 <div class="container">
@@ -25,6 +28,7 @@
                 <table class="table">
                     <thead class="table-dark">
                         <tr>
+                            <th>Sr No.</th>
                             <th>Product</th>
                             <th>Seller</th>
                             <th>Your Offer</th>
@@ -34,14 +38,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($offers ?? [] as $offer)
+                        @foreach($offers as $index => $offer)
                         <tr class="align-middle">
+                            <td>{{ $index + 1 }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/' . $offer->product_image) }}" 
-                                         alt="Product Image"
-                                         class="rounded me-2"
-                                         style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $offer->product_image) }}" alt="Product Image"
+                                        class="rounded me-2" style="width: 80px; height: 80px; object-fit: cover;">
                                     <span>{{ $offer->product_name }}</span>
                                 </div>
                             </td>
@@ -51,11 +54,11 @@
                             <td>{{ \Carbon\Carbon::parse($offer->created_at)->format('d M Y') }}</td>
                             <td class="text-center">
                                 @if($offer->status == 'pending')
-                                    <span class="badge bg-warning">Pending</span>
+                                <span class="badge bg-warning">Pending</span>
                                 @elseif($offer->status == 'accepted')
-                                    <span class="badge bg-success">Accepted</span>
+                                <span class="badge bg-success">Accepted</span>
                                 @else
-                                    <span class="badge bg-danger">Rejected</span>
+                                <span class="badge bg-danger">Rejected</span>
                                 @endif
                             </td>
                         </tr>
@@ -63,7 +66,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             @if(empty($offers) || count($offers) == 0)
             <div class="text-center py-5">
                 <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">mail</span>

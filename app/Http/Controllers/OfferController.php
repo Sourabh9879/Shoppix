@@ -48,7 +48,7 @@ class OfferController extends Controller
                       ->orderBy('offers.created_at', 'desc')
                       ->get();
 
-
+                      
         return view('User.message', compact('offers'));
     }
 

@@ -383,7 +383,7 @@
         </div>
         <div class="d-flex">
             <span class="material-symbols-outlined">
-                bottom_panel_close
+                local_offer
             </span>
             <a href="{{ route('offer') }}">Offers</a>
         </div>
