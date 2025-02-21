@@ -33,11 +33,15 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::delete('/delete-product/{id}', 'deleteProduct')->name('deleteProduct');
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
-        Route::get('/offer', 'showOffer')->name('offer');
     });
 
+    Route::controller(OfferController::class)->group(function (){
+        Route::post('/store-offer', 'store')->name('storeOffer');
+        Route::get('/offer', 'showOffer')->name('offer');
+        Route::get('/message', 'showMessage')->name('message');
+
+    });
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.details');
-    Route::post('/store-offer', [OfferController::class, 'store'])->name('storeOffer');
 });
 
 // Admin routes with admin middleware

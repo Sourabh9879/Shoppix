@@ -17,12 +17,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->decimal('amount', 10, 2);
+            $table->decimal('offer_price', 10, 2);
+            $table->integer('price');
             $table->text('message')->nullable();
             $table->string('seller_name');
             $table->unsignedBigInteger('seller_id');
-            $table->string('status')->default('pending');
             $table->integer('product_id');
+            $table->string('product_image');
+            $table->string('product_name');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

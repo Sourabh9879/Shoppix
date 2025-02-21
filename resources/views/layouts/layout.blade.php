@@ -12,9 +12,8 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-<style>
-
-body {
+    <style>
+    body {
         display: flex;
         min-height: 100vh;
         margin: 0;
@@ -347,7 +346,7 @@ body {
             padding: 16px 0;
         }
     }
-</style>
+    </style>
 </head>
 
 <body>
@@ -387,6 +386,12 @@ body {
                 bottom_panel_close
             </span>
             <a href="{{ route('offer') }}">Offers</a>
+        </div>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">
+                chat
+            </span>
+            <a href="{{ route('message') }}">Message</a>
         </div>
         <div class="d-flex">
             <a href="{{ route('logout') }}" class="logout">

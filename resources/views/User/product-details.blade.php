@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Offer Amount (₹)</label>
-                                    <input type="number" name="amount" class="form-control" required>
+                                    <input type="number" name="offer_price" class="form-control" required>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Message</label>
@@ -132,6 +132,9 @@
                                 <input type="hidden" name="seller_id" value="{{ $product->user_id }}">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="user_id" value="{{ session('user_id') }}">
+                                <input type="hidden" name="price" value="{{ $product->price }}">
+                                <input type="hidden" name="product_image" value="{{ $product->image }}">
+                                <input type="hidden" name="product_name" value="{{ $product->name }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
-@section('title', 'Offers')
-@section('heading', 'My Offers')
+@section('title', 'Message')
+@section('heading', 'Messages')
 @section('name', session('name'))
 
 @section('content')
@@ -26,11 +26,11 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Product</th>
-                            <th>Seller</th>
-                            <th>Your Offer</th>
+                            <th>Customer Name</th>
+                            <th>Requested Price</th>
                             <th>Original Price</th>
                             <th>Date</th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,18 +45,20 @@
                                     <span>{{ $offer->product_name }}</span>
                                 </div>
                             </td>
-                            <td>{{ $offer->seller_name }}</td>
+                            <td>{{ $offer->name }}</td>
                             <td class="text-primary">₹{{ $offer->offer_price }}</td>
                             <td class="text-primary">₹{{ $offer->price }}</td>
                             <td>{{ \Carbon\Carbon::parse($offer->created_at)->format('d M Y') }}</td>
                             <td class="text-center">
-                                @if($offer->status == 'pending')
-                                    <span class="badge bg-warning">Pending</span>
+                            @if($offer->status == 'pending')
+                            <button class="btn btn-primary">Accept</button>
+                            <button class="btn btn-danger">Reject</button>
                                 @elseif($offer->status == 'accepted')
                                     <span class="badge bg-success">Accepted</span>
                                 @else
                                     <span class="badge bg-danger">Rejected</span>
                                 @endif
+                             
                             </td>
                         </tr>
                         @endforeach
@@ -67,9 +69,7 @@
             @if(empty($offers) || count($offers) == 0)
             <div class="text-center py-5">
                 <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">mail</span>
-                <h3 class="mt-3">No Offers Yet</h3>
-                <p class="text-muted">You haven't made any offers yet</p>
-                <a href="{{ route('userproducts') }}" class="btn btn-primary mt-3">Browse Products</a>
+                <h3 class="mt-3">No Message Yet</h3>
             </div>
             @endif
         </div>

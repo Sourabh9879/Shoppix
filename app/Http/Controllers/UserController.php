@@ -183,17 +183,6 @@ class UserController extends Controller
         return redirect()->route('cart')->with('success', 'Product removed from wishlist successfully');
     }
 
-    function showOffer()
-    {
-        $userId = session('user_id');
-        
-        $offers = Offer::where('offers.user_id', $userId)
-                      ->join('products', 'offers.product_id', '=', 'products.id')
-                      ->select('offers.*', 'products.name as product_name', 'products.image as product_image')
-                      ->orderBy('offers.created_at', 'desc')
-                      ->get();
-
-        return view('User.offer', compact('offers'));
-    }
+  
 
 }
