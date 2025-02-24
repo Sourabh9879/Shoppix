@@ -37,6 +37,13 @@
         {{ session('failed') }}
     </div>
     @endif
+    @if($products->isEmpty())
+    <div class="text-center py-5">
+        <span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">inventory</span>
+        <h3 class="mt-3">You Have Not Added Any Products yet</h3>
+        <a href="{{ route('addProduct') }}" class="btn btn-primary mt-3">Add Product</a>
+    </div>
+    @else
     <div class="row g-4">
         @foreach($products as $product)
         <div class="col-md-4">
@@ -123,6 +130,7 @@
         </div>
         @endforeach
     </div>
+    @endif
 </div>
 
 <!-- Make sure you have Bootstrap JS and its dependencies -->
