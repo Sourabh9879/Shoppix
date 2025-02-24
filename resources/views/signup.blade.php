@@ -25,6 +25,20 @@
         width: 100%;
         max-width: 400px;
       }
+      .goggle-btn {
+        border:1px solid black;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+    .goggle-btn:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .text-muted{
+      padding-top:10px;
+    }
     </style>
   </head>
   <body>
@@ -53,6 +67,13 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </form>
+          <div class="text-center mb-3">
+                    <p class="text-muted">or</p>
+                    <a href="{{ url('auth/google') }}" class="btn goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
+                        Continue with Google
+                    </a>
+                </div>
         </div>
         <div class="card-footer text-center">
           <span>Already have an Account? <a href="{{ Route('login') }}">Login</a></span>

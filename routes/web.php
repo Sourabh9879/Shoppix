@@ -8,6 +8,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\UserAuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [AuthController::class, 'ShowLogin'])->name('login');
 Route::post('LoginUser', [AuthController::class, 'LoginUser'])->name('LoginUser');
@@ -69,3 +72,36 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('UnfreezeUser/{id}', 'UnfreezeUser')->name('UnfreezeUser');
     });
 });
+
+Route::get('auth/google', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('auth/google/callback', function (\Illuminate\Http\Request $request) {
+    if ($request->has('error')) {
+        return redirect()->route('login')->withErrors(['message' => 'Google login was canceled.']);
+    }
+
+    $googleUser = Socialite::driver('google')->stateless()->user();
+
+    $user = User::updateOrCreate([
+        'email' => $googleUser->getEmail(),
+    ], [
+        'name' => $googleUser->getName(),
+        'google_id' => $googleUser->getId(),
+        'password' => bcrypt('password') 
+    ]);
+
+    Auth::login($user);
+    session([
+        'name' => $user->name,
+        'user_id' => $user->id,
+        'role' => $user->role,
+        'status' => $user->status,
+        'user_image' => $user->image
+    ]);
+    return redirect('/userdash'); 
+});
+
+
+

@@ -37,6 +37,7 @@ class User extends Authenticatable
         'phone',
         'address',
         'image',
+        'google_id',
     ];
 
     /**

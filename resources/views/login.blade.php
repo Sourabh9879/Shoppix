@@ -42,6 +42,22 @@
         width: 100%;
         margin-bottom: 20px;
     }
+
+    .goggle-btn {
+        border:1px solid black;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+    .goggle-btn:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .gap-2 {
+        gap: 0.5rem;
+    }
     </style>
 </head>
 
@@ -76,23 +92,24 @@
                             placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required />
-                    </div> -->
-                    <!-- <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required />
-                    </div> -->
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="floatingPassword password" name="password" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Verify</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Verify</button>
                 </form>
-            </div>
-            <div class="card-footer text-center">
-                <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
+                
+                <div class="text-center mb-3">
+                    <p class="text-muted">or</p>
+                    <a href="{{ url('auth/google') }}" class="btn goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
+                        Continue with Google
+                    </a>
+                </div>
+                
+                <div class="text-center">
+                    <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
+                </div>
             </div>
         </div>
     </div>
