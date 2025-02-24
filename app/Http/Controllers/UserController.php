@@ -86,7 +86,7 @@ class UserController extends Controller
             $request->validate([
                 'name' => 'required|string|max:20',
                 'category' => 'required|string|max:20',
-                'price' => 'required|numeric',
+                'price' => 'required|numeric|min:1|max:99999999',
                 'desc' => 'required|string',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3000',
             ]);

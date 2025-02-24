@@ -46,9 +46,6 @@
                             <span class="material-symbols-outlined me-2">person</span>
                             <span>{{ $product->user_name }}</span>
                         </div>
-                        <div class="d-flex align-items-center text-muted">
-                            <span class="material-symbols-outlined me-2">report</span>
-                        </div>
                     </div>
 
                     <div class="mb-4">

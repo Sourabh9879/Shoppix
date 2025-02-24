@@ -48,7 +48,7 @@
 
                 <div class="mb-3">
                     <label for="price" class="form-label fw-bold">Set A Price (₹)</label>
-                    <input type="number" class="form-control" id="price" name="price" required>
+                    <input type="number" class="form-control" id="price" name="price" max="99999999" required>
                 </div>
 
                 <div class="mb-3">
