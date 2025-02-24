@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Offer;
+use App\Models\Report;
 
 class UserController extends Controller
 {
@@ -181,6 +182,27 @@ class UserController extends Controller
         $cartItem = Cart::find($id);
         $cartItem->delete();
         return redirect()->route('cart')->with('success', 'Product removed from wishlist successfully');
+    }
+
+    public function reportUser(Request $request, $id)
+    {
+        $reporterId = session('user_id');
+        $reportedId = $id;
+
+        $existingReport = Report::where('reporter_id', $reporterId)
+                                ->where('reported_id', $reportedId)
+                                ->first();
+
+        if ($existingReport) {
+            return redirect()->back()->with('failed', 'You have already reported this user.');
+        }
+
+        Report::create([
+            'reporter_id' => $reporterId,
+            'reported_id' => $reportedId,
+        ]);
+
+        return redirect()->back()->with('success', 'User reported successfully.');
     }
 
   

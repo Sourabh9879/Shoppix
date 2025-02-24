@@ -6,24 +6,33 @@
 
 @section('content')
 @if (session('success'))
-    <div class="alert alert-success" id="alertMessage">{{ session('success') }}</div>
-@endif
+    <div class="alert alert-success" id="alertMessage">
+        {{ session('success') }}
+    </div>
+    @endif
+    @if (session('failed'))
+    <div class="alert alert-danger" id="alertMessage">
+        {{ session('failed') }}
+    </div>
+    @endif
 <div class="container">
     <div class="card">
         <div class="card-body">
             <div class="row">
                 <!-- Product Image -->
                 <div class="col-md-6">
-                    <img src="{{ asset('storage/' . $product->image) }}" 
-                         alt="{{ $product->name }}" 
-                         class="img-fluid rounded"
-                         style="width: 100%; height: 400px; object-fit: contain;">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="img-fluid rounded" style="width: 100%; height: 400px; object-fit: contain;">
                 </div>
-                
+
                 <!-- Product Details -->
                 <div class="col-md-6">
-                    <h2 class="mb-3">{{ $product->name }}</h2>
-                    
+                    <h2 class="mb-3">{{ $product->name }}
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                            <span class="material-symbols-outlined caution-symbol">warning</span>
+                        </button>
+                    </h2>
+
                     <div class="mb-4">
                         <h3 class="text-primary mb-0">₹{{ $product->price }}</h3>
                     </div>
@@ -37,6 +46,9 @@
                             <span class="material-symbols-outlined me-2">person</span>
                             <span>{{ $product->user_name }}</span>
                         </div>
+                        <div class="d-flex align-items-center text-muted">
+                            <span class="material-symbols-outlined me-2">report</span>
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -46,27 +58,27 @@
 
                     <div class="d-grid gap-2">
                         @if($product->user_id !== session('user_id'))
-                            @if(session('status') == true)
-                                @if(isset($offer) && $offer->status == 'pending')
-                                    <div class="text-center text-warning">Pending</div>
-                                @elseif(isset($offer) && $offer->status == 'accepted')
-                                    <div class="text-center text-success">Accepted</div>
-                                @else
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offerModal">
-                                        <span class="material-symbols-outlined align-middle me-2">handshake</span>
-                                        Make offer
-                                    </button>
-                                @endif
-                                <form action="{{ route('addToCart', $product->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-primary w-100">
-                                        <span class="material-symbols-outlined align-middle me-2">favorite</span>
-                                        Add to Wishlist
-                                    </button>
-                                </form>
-                            @else
-                                <div class="text-danger text-center">Account Freezed</div>
-                            @endif
+                        @if(session('status') == true)
+                        @if(isset($offer) && $offer->status == 'pending')
+                        <div class="text-center text-warning">Pending</div>
+                        @elseif(isset($offer) && $offer->status == 'accepted')
+                        <div class="text-center text-success">Accepted</div>
+                        @else
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offerModal">
+                            <span class="material-symbols-outlined align-middle me-2">handshake</span>
+                            Make offer
+                        </button>
+                        @endif
+                        <form action="{{ route('addToCart', $product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-primary w-100">
+                                <span class="material-symbols-outlined align-middle me-2">favorite</span>
+                                Add to Wishlist
+                            </button>
+                        </form>
+                        @else
+                        <div class="text-danger text-center">Account Freezed</div>
+                        @endif
                         @endif
                     </div>
                 </div>
@@ -88,14 +100,13 @@
                     <!-- Left Column -->
                     <div class="col-5">
                         <div class="product-summary bg-light rounded p-3 h-100">
-                            <img src="{{ asset('storage/' . $product->image) }}" 
-                                 alt="{{ $product->name }}"
-                                 class="rounded w-100 mb-3"
-                                 style="height: 120px; object-fit: contain;">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="rounded w-100 mb-3" style="height: 120px; object-fit: contain;">
                             <h6 class="mb-2">{{ $product->name }}</h6>
                             <p class="mb-0 text-primary fw-bold fs-5">₹{{ $product->price }}</p>
                             <span class="text-muted small">
-                                <span class="material-symbols-outlined align-middle me-1" style="font-size: 16px;">person</span>
+                                <span class="material-symbols-outlined align-middle me-1"
+                                    style="font-size: 16px;">person</span>
                                 {{ $product->user_name }}
                             </span>
                         </div>
@@ -127,7 +138,8 @@
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Message</label>
-                                    <textarea name="message" class="form-control" rows="2" placeholder="Write a message..."></textarea>
+                                    <textarea name="message" class="form-control" rows="2"
+                                        placeholder="Write a message..."></textarea>
                                 </div>
                                 <!-- Hidden fields for seller's information -->
                                 <input type="hidden" name="seller_name" value="{{ $product->user_name }}">
@@ -150,33 +162,73 @@
     </div>
 </div>
 
+<!-- Report Modal -->
+<form id="reportForm" action="{{ route('ReportUser', ['id' => $product->user_id]) }}" method="POST">
+    @csrf
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="reportModalLabel">Report User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to report <span class="nme">{{ $product->user_name }}</span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <style>
 .modal-lg {
     max-width: 800px;
 }
+
 .modal-content {
     border-radius: 8px;
 }
+
 .product-summary {
     height: 100%;
 }
+
 .form-control {
     padding: 0.5rem 0.75rem;
 }
+
 .btn {
     padding: 0.5rem 1.5rem;
 }
+
+.caution-symbol {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    color: red;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+.nme{
+    font-weight:bold;
+    font-size:1.2em;
+}
 </style>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            let alertBox = document.getElementById("alertMessage");
-            if (alertBox) {
-                alertBox.style.transition = "opacity 0.5s";
-                alertBox.style.opacity = "0";
-                setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
-            }
-        }, 3000); // 3 seconds delay
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        let alertBox = document.getElementById("alertMessage");
+        if (alertBox) {
+            alertBox.style.transition = "opacity 0.5s";
+            alertBox.style.opacity = "0";
+            setTimeout(() => alertBox.remove(), 500);
+        }
+    }, 3000); 
+});
 </script>
 @endsection

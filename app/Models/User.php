@@ -17,6 +17,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+     public function reports()
+     {
+         return $this->hasMany(Report::class, 'reported_id');
+     }
+ 
+     public function reportedUsers()
+     {
+         return $this->hasMany(Report::class, 'reporter_id');
+     }
+     
     protected $fillable = [
         'name',
         'email',

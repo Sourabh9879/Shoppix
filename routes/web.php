@@ -33,6 +33,7 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::delete('/delete-product/{id}', 'deleteProduct')->name('deleteProduct');
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
+        Route::post('/report-user/{id}','reportUser')->name('ReportUser');
     });
 
     Route::controller(OfferController::class)->group(function (){

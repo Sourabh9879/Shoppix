@@ -18,6 +18,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Reports</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                                     {{ $user->status ? 'Active' : 'Freezed' }}
                                 </span>
                             </td>
+                            <td class="text-center">{{ $user->reports->count() }}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
                                     <form action="{{ route('deleteUser', $user->id) }}" method="POST">
