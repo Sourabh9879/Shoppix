@@ -69,7 +69,7 @@
                                     </button>
                                 </form>
                             @else
-                                <div class="text-danger text-center">Account Blocked</div>
+                                <div class="text-danger text-center">Account Freezed</div>
                             @endif
                         @endif
                     </div>

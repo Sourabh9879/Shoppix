@@ -25,7 +25,7 @@ class AuthController extends Controller
                           ->where('status', 1)
                           ->count();
         
-        $blockedUsers = User::where('role', 'user')
+        $freezedUsers = User::where('role', 'user')
                            ->where('status', 0)
                            ->count();
         
@@ -37,7 +37,7 @@ class AuthController extends Controller
             'totalUsers',
             'totalProducts',
             'activeUsers',
-            'blockedUsers',
+            'freezedUsers',
             'products'
         ));
     }

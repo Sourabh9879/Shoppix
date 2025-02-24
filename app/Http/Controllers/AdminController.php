@@ -37,13 +37,13 @@ class AdminController extends Controller
         return redirect('users');
     }
 
-    function BlockUser($id){
+    function FreezeUser($id){
             $user = User::findorFail($id);
             $user->status = false;
             $user->save();
             return redirect('users');
     }
-    function UnBlockUser($id){
+    function UnfreezeUser($id){
             $user = User::findorFail($id);
             $user->status = true;
             $user->save();
@@ -85,11 +85,6 @@ class AdminController extends Controller
             return redirect()->route('admprofile', ['id' => $id])->with('success', 'User updated successfully');
         }
         return redirect()->route('profile', ['id' => $id])->with('success', 'User updated successfully');
-    }
-
-    function ShowAdminDash(){
-        // Get total users (excluding admin)
-      
     }
 
 }

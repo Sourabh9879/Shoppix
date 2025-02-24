@@ -52,8 +52,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-muted mb-2">Blocked Users</h6>
-                            <h3 class="mb-0">{{ $blockedUsers ?? 0 }}</h3>
+                            <h6 class="text-muted mb-2">Freezed Users</h6>
+                            <h3 class="mb-0">{{ $freezedUsers ?? 0 }}</h3>
                         </div>
                         <span class="material-symbols-outlined text-danger fs-1">block</span>
                     </div>

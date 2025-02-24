@@ -55,7 +55,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">Status</h6>
-                            <h3 class="mb-0">{{ session('status') ? 'Active' : 'Blocked' }}</h3>
+                            <h3 class="mb-0">{{ session('status') ? 'Active' : 'Freezed' }}</h3>
                         </div>
                         <span
                             class="material-symbols-outlined {{ session('status') ? 'text-success' : 'text-danger' }} fs-1">

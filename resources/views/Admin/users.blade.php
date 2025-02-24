@@ -29,7 +29,7 @@
                             <td>{{ $user->email }}</td>
                             <td class="text-center">
                                 <span class="badge {{ $user->status ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $user->status ? 'Active' : 'Blocked' }}
+                                    {{ $user->status ? 'Active' : 'Freezed' }}
                                 </span>
                             </td>
                             <td>
@@ -41,11 +41,11 @@
                                         </button>
                                     </form>
                                     @if($user->status)
-                                        <a href="{{ route('BlockUser', $user->id) }}" class="btn btn-warning btn-sm">
+                                        <a href="{{ route('FreezeUser', $user->id) }}" class="btn btn-warning btn-sm">
                                             <span class="material-symbols-outlined">block</span>
                                         </a>
                                     @else
-                                        <a href="{{ route('UnBlockUser', $user->id) }}" class="btn btn-success btn-sm">
+                                        <a href="{{ route('UnfreezeUser', $user->id) }}" class="btn btn-success btn-sm">
                                             <span class="material-symbols-outlined">check_circle</span>
                                         </a>
                                     @endif
