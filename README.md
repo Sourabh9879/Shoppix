@@ -1,66 +1,198 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Shoppix - E-commerce Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Shoppix is a modern e-commerce platform that enables users to buy and sell products. Built with Laravel, it provides a secure and user-friendly marketplace experience.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### User Authentication
+- Traditional email/password login
+- Google OAuth integration
+- User registration with validation
+- Secure session management
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### User Dashboard
+- Overview of user activities
+- Quick access to key features
+- Recent products display
+- Statistics (My Products, Wishlist items, Total Products)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Product Management
+- Add new products with images
+- Edit existing products
+- Delete products
+- Product categorization
+- Product search functionality
+- Detailed product views
 
-## Learning Laravel
+### Shopping Features
+- Add products to wishlist
+- Make offers on products
+- View product details
+- Contact sellers
+- Product image preview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### User Profile
+- Profile information management
+- Profile picture upload
+- Contact information update
+- Address management
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Admin Panel
+- User management
+  - View all users
+  - Freeze/Unfreeze users
+  - Delete users
+- Product oversight
+  - View all products
+  - Remove inappropriate products
+- Dashboard with statistics
+  - Total users
+  - Active users
+  - Total products
+  - Recent activities
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Security Features
+- User account status monitoring
+- Report inappropriate content/users
+- Input validation
+- Secure file uploads
+- Protected routes
 
-## Laravel Sponsors
+## Technical Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Frontend
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
+- Google Material Icons
 
-### Premium Partners
+### Backend
+- PHP 8.x
+- Laravel Framework
+- MySQL Database
+- Google OAuth API
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Key Components
+- MVC Architecture
+- Middleware Authentication
+- File Storage System
+- Session Management
+- Database Migrations
+
+## Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/shoppix.git
+```
+
+2. Install dependencies
+```bash
+composer install
+npm install
+```
+
+3. Configure environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Set up database
+```bash
+php artisan migrate
+```
+
+5. Link storage
+```bash
+php artisan storage:link
+```
+
+6. Start the server
+```bash
+php artisan serve
+```
+
+## Environment Requirements
+- PHP >= 8.0
+- MySQL >= 5.7
+- Composer
+- Node.js & NPM
+- Laravel Requirements
 
 ## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
+[MIT License](LICENSE.md)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Contact
+Your Name - your.email@example.com
+
+Project Link: https://github.com/yourusername/shoppix
+
+## Routes Documentation
+
+### Authentication Routes
+```php
+GET    /                  # Show login page
+POST   /LoginUser        # Authenticate user login
+GET    /signup           # Show registration page
+POST   /RegisterUser     # Register new user
+GET    /LogoutUser       # Logout user and clear session
+```
+
+### User Routes
+```php
+GET    /userdash         # User dashboard with statistics and recent products
+GET    /products         # Display all available products
+GET    /add-product      # Show add product form
+POST   /store-product    # Save new product to database
+GET    /my-products      # Show user's listed products
+GET    /profile/{id}     # Show user profile
+PUT    /profile/{id}     # Update user profile information
+GET    /cart             # Show user's wishlist items
+PUT    /update-product/{id}    # Update product details
+DELETE /delete-product/{id}    # Remove product listing
+POST   /add-to-cart/{id}      # Add product to wishlist
+DELETE /remove-from-cart/{id}  # Remove product from wishlist
+POST   /report-user/{id}      # Report a user for inappropriate behavior
+```
+
+### Product Routes
+```php
+GET    /product/{id}     # Show detailed product view
+GET    /search           # Search products by name or description
+```
+
+### Offer Routes
+```php
+POST   /store-offer      # Store new offer for a product
+GET    /offer           # Show offers made by current user
+GET    /message         # Show received offers for seller
+GET    /accept/{id}     # Accept an offer
+GET    /reject/{id}     # Reject an offer
+GET    /deleteoffer/{id} # Delete an offer
+```
+
+### Admin Routes
+```php
+GET    /admdash         # Admin dashboard with statistics
+GET    /admprofile/{id} # Admin profile view
+PUT    /admprofile/{id} # Update admin profile
+GET    /admin-products  # View all products in system
+DELETE /deleteProduct/{id}    # Remove product from system
+GET    /users           # View all users
+DELETE /deleteUser/{id}       # Remove user from system
+GET    /FreezeUser/{id}      # Disable user account
+GET    /UnfreezeUser/{id}    # Enable user account
+```
+
+### Google OAuth Routes
+```php
+GET    /auth/google          # Redirect to Google OAuth
+GET    /auth/google/callback # Handle Google OAuth callback
+```
+
+All routes except login and signup are protected by authentication middleware to ensure secure access.
