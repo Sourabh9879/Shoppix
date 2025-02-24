@@ -1,6 +1,6 @@
-# Shoppix - E-commerce Platform
+# Shoppix - Buy And Sell Platform
 
-Shoppix is a modern e-commerce platform that enables users to buy and sell products. Built with Laravel, it provides a secure and user-friendly marketplace experience.
+Shoppix is a modern platform that enables users to buy and sell products. Built with Laravel, it provides a secure and user-friendly marketplace experience.
 
 ## Features
 
@@ -68,7 +68,7 @@ Shoppix is a modern e-commerce platform that enables users to buy and sell produ
 - Google Material Icons
 
 ### Backend
-- PHP 8.x
+- PHP 8.3
 - Laravel Framework
 - MySQL Database
 - Google OAuth API
@@ -118,19 +118,21 @@ php artisan serve
 - PHP >= 8.0
 - MySQL >= 5.7
 - Composer
-- Node.js & NPM
 - Laravel Requirements
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-[MIT License](LICENSE.md)
+## Google Auth
+```php
 
-## Contact
-Your Name - your.email@example.com
+in .env File Add this for Google Auth 
 
-Project Link: https://github.com/yourusername/shoppix
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+GOOGLE_REDIRECT_URI
+
+```
 
 ## Routes Documentation
 
