@@ -84,7 +84,7 @@ class UserController extends Controller
     function storeProduct(Request $request){
         try {
             $request->validate([
-                'name' => 'required|string|max:20',
+                'name' => 'required|string|max:50',
                 'category' => 'required|string|max:20',
                 'price' => 'required|numeric|min:1|max:99999999',
                 'desc' => 'required|string',
@@ -131,7 +131,7 @@ class UserController extends Controller
 
     function updateProduct(Request $request, $id){
         $request->validate([
-            'name' => 'sometimes|string|max:20',
+            'name' => 'sometimes|string|max:50',
             'category' => 'sometimes|string|max:20',
             'price' => 'sometimes|numeric',
             'desc' => 'sometimes|string',

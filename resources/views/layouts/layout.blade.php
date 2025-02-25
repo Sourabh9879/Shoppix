@@ -351,10 +351,11 @@
 
 <body>
     <div class="sidebar">
-        <a href="{{ Route('userdash') }}">
-            <h4>Dashboard</h4>
-        </a>
-
+            <h4>Shoppix</h4>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">home</span>
+            <a href="{{ route('userdash') }}" class="">Dashboard</a>
+        </div>
         <div class="d-flex">
             <span class="material-symbols-outlined">inventory</span>
             <a href="{{ route('myproducts') }}" class="">My Products</a>
