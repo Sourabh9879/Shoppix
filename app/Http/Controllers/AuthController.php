@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Product;
 use App\Models\Cart;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -121,5 +123,36 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(\Illuminate\Http\Request $request)
+    {
+        if ($request->has('error')) {
+            return redirect()->route('login')->withErrors(['message' => 'Google login was canceled.']);
+        }
+
+        $googleUser = Socialite::driver('google')->stateless()->user();
+
+        $user = User::updateOrCreate([
+            'email' => $googleUser->getEmail(),
+        ], [
+            'name' => $googleUser->getName(),
+            'google_id' => $googleUser->getId(),
+            'password' => bcrypt('password')
+        ]);
+
+        Auth::login($user);
+        session([
+            'name' => $user->name,
+            'user_id' => $user->id,
+            'role' => $user->role,
+            'status' => $user->status,
+            'user_image' => $user->image
+        ]);
+
+        return redirect('/userdash');
+    }
 }
