@@ -31,9 +31,10 @@
         margin-left: 400px;
     }
 </style>
-<form action="{{ route('search') }}" method="GET">
+<form action="{{ route('search') }}" method="GET" onsubmit="return checkSearchInput()">
     <input type="text" name="query" class="search-input" placeholder="Search products...">
-    <button type="submit" class="search-button" >Search</button>
+    <input type="hidden" name="shuffle" id="shuffle" value="false">
+    <button type="submit" class="search-button">Search</button>
 </form>
 
 <div class="container">
@@ -79,4 +80,13 @@
         @endforeach
     </div>
 </div>
+<script>
+function checkSearchInput() {
+    const searchInput = document.querySelector('.search-input').value;
+    if (!searchInput) {
+        document.getElementById('shuffle').value = 'true';
+    }
+    return true;
+}
+</script>
 @endsection

@@ -20,15 +20,21 @@ class ProductController extends Controller
         return view('User.product-details', compact('product', 'user', 'offer'));
     }
 
-    function search(Request $request)
-{
-    $query = $request->input('query');
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $shuffle = $request->input('shuffle');
 
-    $products = Product::where('name', 'LIKE', "%{$query}%")
-                        ->orWhere('desc', 'LIKE', "%{$query}%")
-                        ->get();
+        if ($shuffle === 'true') {
+            $products = Product::all()->shuffle();
+        } else {
+            $products = Product::where('name', 'LIKE', "%{$query}%")
+                ->orWhere('category', 'LIKE', "%{$query}%")
+                ->orWhere('desc', 'LIKE', "%{$query}%")
+                ->get();
+        }
 
-    return view('User.products', compact('products'));
+        return view('User.products', compact('products'));
+    }
+
 }
-
-} 

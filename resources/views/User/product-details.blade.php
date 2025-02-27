@@ -6,15 +6,15 @@
 
 @section('content')
 @if (session('success'))
-    <div class="alert alert-success" id="alertMessage">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('failed'))
-    <div class="alert alert-danger" id="alertMessage">
-        {{ session('failed') }}
-    </div>
-    @endif
+<div class="alert alert-success" id="alertMessage">
+    {{ session('success') }}
+</div>
+@endif
+@if (session('failed'))
+<div class="alert alert-danger" id="alertMessage">
+    {{ session('failed') }}
+</div>
+@endif
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -28,9 +28,11 @@
                 <!-- Product Details -->
                 <div class="col-md-6">
                     <h2 class="mb-3">{{ $product->name }}
+                        @if($product->user_id !== session('user_id'))
                         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#reportModal">
                             <span class="material-symbols-outlined caution-symbol">warning</span>
                         </button>
+                        @endif
                     </h2>
 
                     <div class="mb-4">
@@ -42,9 +44,13 @@
                             <span class="material-symbols-outlined me-2">sell</span>
                             <span>{{ $product->category }}</span>
                         </div>
-                        <div class="d-flex align-items-center text-muted">
+                        <div class="d-flex align-items-center text-muted mb-2">
                             <span class="material-symbols-outlined me-2">person</span>
                             <span>{{ $product->user_name }}</span>
+                        </div>
+                        <div class="d-flex align-items-center text-muted mb-2">
+                            <span class="material-symbols-outlined me-2">calendar_month</span>
+                            <span>Posted on: {{ $product->created_at->format('d M Y') }}</span>
                         </div>
                     </div>
 
@@ -211,9 +217,10 @@
     margin-right: 10px;
     padding-top: 10px;
 }
-.nme{
-    font-weight:bold;
-    font-size:1.2em;
+
+.nme {
+    font-weight: bold;
+    font-size: 1.2em;
 }
 </style>
 <script>
@@ -225,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alertBox.style.opacity = "0";
             setTimeout(() => alertBox.remove(), 500);
         }
-    }, 3000); 
+    }, 3000);
 });
 </script>
 @endsection
