@@ -188,6 +188,7 @@ class UserController extends Controller
     {
         $reporterId = session('user_id');
         $reportedId = $id;
+        $report_message = $request->message;
 
         $existingReport = Report::where('reporter_id', $reporterId)
                                 ->where('reported_id', $reportedId)
@@ -197,9 +198,16 @@ class UserController extends Controller
             return redirect()->back()->with('failed', 'You have already reported this user.');
         }
 
+        $request->validate([
+            'message' => 'required|string|max:255',
+        ],[
+            'message.required' => 'Please provide a message for the report',
+        ]); 
+
         Report::create([
             'reporter_id' => $reporterId,
             'reported_id' => $reportedId,
+            'report_message' => $report_message,
         ]);
 
         return redirect()->back()->with('success', 'User reported successfully.');

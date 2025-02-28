@@ -168,7 +168,8 @@
 <!-- Report Modal -->
 <form id="reportForm" action="{{ route('ReportUser', ['id' => $product->user_id]) }}" method="POST">
     @csrf
-    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <input type="hidden" name="hasError" value="{{ $errors->has('message') ? 'true' : 'false' }}">
+    <div class="modal fade @if($errors->has('message')) show @endif" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true" @if($errors->has('message')) style="display: block;" @endif>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -177,6 +178,11 @@
                 </div>
                 <div class="modal-body">
                     Are you sure you want to report <span class="nme">{{ $product->user_name }}</span>?
+                </div>
+                <div class="modal-body">
+                    <label for="message" class="form-label fw-bold">Reason For Report</label>
+                    <textarea class="form-control" id="message" name="message"></textarea>
+                    <span style="color:red">@error('message'){{ $message }}@enderror</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

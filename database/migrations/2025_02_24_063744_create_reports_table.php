@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('reporter_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('reported_id')->constrained('users')->onDelete('cascade');
+            $table->text('report_message');
             $table->timestamps();
         });
     }
