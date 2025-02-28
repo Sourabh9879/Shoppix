@@ -20,9 +20,9 @@
         <a href="{{ route('userproducts') }}" class="btn btn-primary mt-3">Browse Products</a>
     </div>
     @else
-    <div class="row g-4">
+    <div class="row g-4" id="cartItemsContainer">
         @foreach($cartItems as $item)
-        <div class="col-md-4">
+        <div class="col-md-4" id="cartItem{{ $item->id }}">
             <div class="card h-100">
                 <div class="position-relative">
                     <img src="{{ asset('storage/' . $item->product->image) }}" class="card-img-top p-3" alt="{{ $item->product->name }}" style="height: 200px; object-fit: contain;">
@@ -42,7 +42,7 @@
                                 {{ $item->product->user_name }}
                             </span>
                         </div>
-                        <form action="{{ route('removeFromCart', $item->id) }}" method="POST">
+                        <form class="removeFromCartForm" data-id="{{ $item->id }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger w-100">
@@ -68,6 +68,27 @@
                 setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
             }
         }, 3000); // 3 seconds delay
+
+        $('.removeFromCartForm').on('submit', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let itemId = form.data('id');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('removeFromCart', '') }}/' + itemId,
+                data: form.serialize(),
+                success: function(response) {
+                    $('#cartItem' + itemId).remove();
+                    if ($('#cartItemsContainer').children().length === 0) {
+                        $('#cartItemsContainer').html('<div class="text-center py-5"><span class="material-symbols-outlined" style="font-size: 4rem; color: #9ca3af;">favorite</span><h3 class="mt-3">Your Wishlist is empty</h3><p class="text-muted">Browse products and add items to your Wishlist</p><a href="{{ route('userproducts') }}" class="btn btn-primary mt-3">Browse Products</a></div>');
+                    }
+                },
+                error: function(response) {
+                    alert('Failed to remove item from wishlist.');
+                }
+            });
+        });
     });
 </script>
 @endsection

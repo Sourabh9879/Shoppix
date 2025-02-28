@@ -82,7 +82,6 @@ class UserController extends Controller
     }
 
     function storeProduct(Request $request){
-        try {
             $request->validate([
                 'name' => 'required|string|max:50',
                 'category' => 'required|string|max:20',
@@ -112,11 +111,13 @@ class UserController extends Controller
                 'user_name' => session('name'),
             ]);
 
-            return redirect()->route('myproducts')->with('success', 'Product added successfully');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Error creating product: ' . $e->getMessage());
-        }
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Product added successfully!']);
+            }
+    
+            return redirect()->route('userproducts')->with('success', 'Product added successfully!');
+        
+        
     }
 
     function deleteProduct($id){
@@ -181,7 +182,12 @@ class UserController extends Controller
     function removeFromCart($id){
         $cartItem = Cart::find($id);
         $cartItem->delete();
-        return redirect()->route('cart')->with('success', 'Product removed from wishlist successfully');
+        if (request()->ajax()) {
+            return response()->json(['message' => 'Item removed from wishlist successfully!']);
+        }
+
+        return redirect()->route('cart')->with('success', 'Item removed from wishlist successfully!');
+    
     }
 
     public function reportUser(Request $request, $id)

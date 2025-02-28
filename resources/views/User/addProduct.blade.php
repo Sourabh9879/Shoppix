@@ -11,11 +11,9 @@
         <div class="card-body">
             <h3 class="text-center mb-3 text-primary">Add New Product</h3>
 
-            @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
+            <div id="alertMessage" style="display: none;"></div>
 
-            <form action="{{ route('storeProduct') }}" method="POST" enctype="multipart/form-data">
+            <form id="addProductForm" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -83,5 +81,29 @@
                 preview.style.display = 'none';
             }
         }
+
+        $(document).ready(function() {
+            $('#addProductForm').on('submit', function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('storeProduct') }}',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        $('#alertMessage').removeClass('alert-danger').addClass('alert alert-success').text(response.message).show();
+                        $('#addProductForm')[0].reset();
+                        $('#imagePreview').hide();
+                    },
+                    error: function(response) {
+                        $('#alertMessage').removeClass('alert-success').addClass('alert alert-danger').text(response.responseJSON.message).show();
+                    }
+                });
+            });
+        });
     </script>
 @endsection
