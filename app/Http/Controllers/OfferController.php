@@ -52,15 +52,22 @@ class OfferController extends Controller
         return view('User.message', compact('offers'));
     }
 
-    function Accept($id){
+    public function Accept($id)
+    {
+        $acceptedOffer = Offer::find($id);
 
-        Offer::where('product_id', $id)->update(['status' => 'accepted']);
-        return redirect('message');
+        $acceptedOffer->update(['status' => 'accepted']);
 
+        Offer::where('product_id', $acceptedOffer->product_id)
+            ->where('id', '!=', $id)
+            ->update(['status' => 'rejected']);
+
+        return redirect('message')->with('success', 'Offer accepted successfully.');
     }
+
     function Reject($id){
 
-        Offer::where('product_id', $id)->update(['status' => 'rejected']);
+        Offer::where('id', $id)->update(['status' => 'rejected']);
         return redirect('message');
 
     }

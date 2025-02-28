@@ -66,8 +66,8 @@
                             <td class="text-center">
                                 @if($offer->status == 'pending')
                                 <div class="action-buttons">
-                                    <a href="{{ route('accept',['id' => $offer->product_id ]) }}" class="btn btn-primary">Accept</a>
-                                    <a href="{{ route('reject',['id' => $offer->product_id ]) }}" class="btn btn-danger">Reject</a>
+                                    <a href="{{ route('accept', ['id' => $offer->id]) }}" class="btn btn-primary">Accept</a>
+                                    <a href="{{ route('reject', ['id' => $offer->id]) }}" class="btn btn-danger">Reject</a>
                                 </div>
                                 @elseif($offer->status == 'accepted')
                                 <div class="action-buttons">
@@ -99,9 +99,9 @@
                                     </div>
                                     <div class="modal-body">
                                         @if($offer->status == 'rejected')
-                                        <a href="{{ route('accept',['id' => $offer->product_id ]) }}" class="btn btn-primary abc">Accept</a>
+                                        <a href="{{ route('accept', ['id' => $offer->id]) }}" class="btn btn-primary abc">Accept</a>
                                         @elseif($offer->status == 'accepted')
-                                        <a href="{{ route('reject',['id' => $offer->product_id ]) }}" class="btn btn-danger abc">Reject</a>
+                                        <a href="{{ route('reject', ['id' => $offer->id]) }}" class="btn btn-danger abc">Reject</a>
                                         @endif
                                     </div>
                                     <div class="modal-footer">
