@@ -63,12 +63,12 @@ class UserController extends Controller
             $user->image = $path;
         }
     
-        $user->save();  // Make sure to save the user after updating
+        $user->save();
         session(['user_image' => $user->image]);
         if($user->role == 'admin'){
-            return redirect()->route('admprofile', ['id' => $id])->with('success', 'User updated successfully');
+            return redirect()->route('admprofile', ['id' => $id])->with('success', 'Profile updated successfully');
         }
-        return redirect()->route('profile', ['id' => $id])->with('success', 'User updated successfully');
+        return redirect()->route('profile', ['id' => $id])->with('success', 'Profile updated successfully');
     }
 
     function showCart(){
