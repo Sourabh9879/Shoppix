@@ -12,16 +12,19 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [AuthController::class, 'ShowLogin'])->name('login');
-Route::post('LoginUser', [AuthController::class, 'LoginUser'])->name('LoginUser');
 
-Route::get('/signup', [AuthController::class, 'ShowSignup'])->name('signup');
-Route::post('RegisterUser', [AuthController::class, 'RegisterUser'])->name('RegisterUser');
+Route::controller(AuthController::class)->group(function () {
 
-Route::get('LogoutUser', [AuthController::class, 'LogoutUser'])->name('logout');
+    Route::get('/', 'ShowLogin')->name('login');
+    Route::post('LoginUser', 'LoginUser')->name('LoginUser');
+    Route::get('/signup', 'ShowSignup')->name('signup');
+    Route::post('RegisterUser', 'RegisterUser')->name('RegisterUser');
+    Route::get('LogoutUser', 'LogoutUser')->name('logout');
+    Route::get('auth/google', 'redirectToGoogle');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+    Route::post('change-password','changePassword')->name('changePassword');
 
-Route::get('auth/google', [AuthController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+});
 
 // User routes with user.auth middleware
 Route::middleware([UserAuthMiddleware::class])->group(function () {
@@ -40,6 +43,7 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::post('/add-to-cart/{id}', 'addToCart')->name('addToCart');
         Route::delete('/remove-from-cart/{id}', 'removeFromCart')->name('removeFromCart');
         Route::post('/report-user/{id}','reportUser')->name('ReportUser');
+        
     });
 
     Route::controller(OfferController::class)->group(function (){

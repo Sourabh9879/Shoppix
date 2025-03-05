@@ -155,4 +155,28 @@ class AuthController extends Controller
 
         return redirect('/userdash');
     }
+
+    function changePassword(Request $request){
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required | min:4',
+            'confirm_password' => 'required | same:new_password'
+        ],
+        [
+            'old_password.required' => 'Old Password is required.',
+            'new_password.required' => 'New Password is required.',
+            'new_password.min' => 'Password must be minimum 4 characters.',
+            'confirm_password.required' => 'Confirm Password is required.',
+            'confirm_password.same' => 'Passwords do not match.'
+        ]);
+
+        $user = User::find(session('user_id'));
+        if(Hash::check($request->old_password, $user->password)){
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return redirect()->back()->with('success','Password Changed Successfully');
+        } else {
+            return redirect()->back()->with('failed','Old Password is Incorrect');
+        }
+    }
 }
