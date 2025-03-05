@@ -100,24 +100,24 @@
                                     <th>Category</th>
                                     <th>Price</th>
                                     <th>Seller</th>
-                                    <th class="text-center">Action</th>
+                                    <!-- <th class="text-center">Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($products ?? [] as $product)
                                 <tr>
+                                <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ asset('storage/' . $product->image) }}"
+                                                alt="{{ $product->name }}" class="rounded me-2"
+                                                style="width: 50px; height: 50px; object-fit: cover;">
+                                            <span>{{ $product->name }}</span>
+                                        </div>
+                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category }}</td>
                                     <td>₹{{ $product->price }}</td>
                                     <td>{{ $product->user_name }}</td>
-                                    <td class="text-center">
-                                        <form action="{{ route('DeleteProduct', $product->id) }}" method="POST">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <span class="material-symbols-outlined">delete</span>
-                                            </button>
-                                        </form>
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
