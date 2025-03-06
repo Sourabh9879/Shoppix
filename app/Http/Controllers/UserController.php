@@ -13,7 +13,11 @@ use App\Models\Report;
 class UserController extends Controller
 {
     function showProduct(){
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')
+        ->whereHas('user', function($query) {
+            $query->where('status', '1');
+        })
+        ->get();
         return view('user.products', compact('products'));
     }
     function addProduct(){
