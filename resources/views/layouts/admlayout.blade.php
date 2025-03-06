@@ -31,6 +31,9 @@
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
         }
 
         .sidebar h4 {
@@ -66,6 +69,10 @@
         .content {
             flex: 1;
             padding: 20px;
+            margin-left: 250px;
+            /* Same as sidebar width */
+            overflow-y: auto;
+            height: 100vh;
         }
 
         /* Header */
@@ -78,86 +85,176 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 1.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .header .user-info {
             display: flex;
             align-items: center;
             gap: 10px;
+            background: #374151;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .header .user-info:hover {
+            background: #4b5563;
         }
 
         .header .user-info img {
             width: 35px;
             height: 35px;
             border-radius: 50%;
+            border: 2px solid #4b5563;
         }
 
-        /* Table */
-        .table {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .table thead {
-            background: #343a40;
-            color: white;
-        }
-
-        .table tbody tr:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        /* Buttons */
-        .btn {
-            display: flex;
+        /* Sidebar Links */
+        .sidebar .d-flex {
             align-items: center;
-            justify-content: center;
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-
-        /* Alerts */
-        .alert {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 10px;
             border-radius: 5px;
-            max-width: 500px;
-            margin: 10px auto;
+            transition: background 0.3s;
+        }
+
+        .sidebar .d-flex:hover {
+            background-color: #374151;
+        }
+
+        .sidebar .d-flex:hover a,
+        .sidebar .d-flex:hover .material-symbols-outlined {
+            color: #fff;
+        }
+
+        /* Logout Button */
+        .sidebar .logout {
+            background-color: #ef4444;
+            color: white;
+            padding: 10px 15px;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .sidebar .logout:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Card Styles */
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem 0.5rem;
+            }
+
+            .sidebar h4,
+            .sidebar-link span:not(.material-symbols-outlined) {
+                display: none;
+            }
+
+            .sidebar-link {
+                justify-content: center;
+                padding: 0.875rem;
+            }
+
+            .sidebar-link .material-symbols-outlined {
+                margin: 0;
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 1rem;
+                margin-left: 80px;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .user-info span:not(.material-symbols-outlined) {
+                display: none;
+            }
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <h4>Admin Dashboard</h4>
-        <a href="{{ route('admdash') }}"><span class="material-symbols-outlined">home</span> Dashboard</a>
-        <a href="{{ route('admproducts') }}"><span class="material-symbols-outlined">format_list_bulleted</span> Products</a>
-        <a href="{{ route('admuser') }}"><span class="material-symbols-outlined">manage_accounts</span> Users</a>
-        <a href="{{ route('admprofile', ['id' => session('user_id')]) }}"><span class="material-symbols-outlined">account_circle</span> Profile</a>
-        <a href="{{ route('logout') }}" class="btn btn-danger mt-auto"><span class="material-symbols-outlined">logout</span> Logout</a>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">home</span>
+            <a href="{{ route('admdash') }}">Dashboard</a>
+        </div>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">format_list_bulleted</span>
+            <a href="{{ route('admproducts') }}">Products</a>
+        </div>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">manage_accounts</span>
+            <a href="{{ route('admuser') }}">Users</a>
+        </div>
+        <div class="d-flex">
+            <span class="material-symbols-outlined">account_circle</span>
+            <a href="{{ route('admprofile', ['id' => session('user_id')]) }}">Profile</a>
+        </div>
+        <div class="d-flex">
+            <a href="{{ route('logout') }}" class="logout">
+                <span class="material-symbols-outlined">logout</span> Logout
+            </a>
+        </div>
     </div>
 
     <!-- Main Content -->
     <div class="content">
         <!-- Header -->
         <div class="header">
-            <h1>@yield('heading')</h1>
+            <h2>@yield('heading')</h2>
             <div class="user-info">
                 @if(session('user_image'))
-                    <img src="{{ asset('storage/' . session('user_image')) }}" alt="User Image">
+                <img src="{{ asset('storage/' . session('user_image')) }}" alt="User Image">
                 @else
-                    <span class="material-symbols-outlined">account_circle</span>
+                <span class="material-symbols-outlined">account_circle</span>
                 @endif
                 <a href="" class="text-white">@yield('name')</a>
             </div>
@@ -168,7 +265,6 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
