@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Product;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,35 +61,38 @@ class AuthController extends Controller
         return view('User.userdash', compact('myProducts', 'cartItems', 'totalProducts', 'recentProducts'));
     }
 
-    function RegisterUser(Request $data){
+    function RegisterUser(Request $request){
 
-       $valid = $data->validate([
+       $valid = $request->validate([
             'name' => 'required | string | max:16 |regex:/^[a-zA-Z\s]+$/ ',
             'email' => 'required | email | unique:users,email',
-            'password' => 'required | min:4'
+            'password' => 'required | min:4 | confirmed'
         ],[
             'name.required' => 'Name is required.',
             'name.regex' => 'Name cannot contain numbers.',
             'email.unique' => 'This Email is already registered.Try again with another email.',
             'password.min' => 'Password must me minimum 4 characters.',
             'password.required' => 'Password is required',
+            'password.confirmed' => 'Confirm Password Does Not Match',
         ]);
 
-        if(!$valid){
-            return redirect()->route('signup')->withInput();
-        }
+        $otp = rand(100000, 999999);
 
-        $user = new User();
-        $user->name = $data->name;
-        $user->email = $data->email;
-        $user->password = Hash::make($data->password);
-        $user->save();
-        
-        if($user){
-            return redirect()->route('login')->with('success','User Created Successfully');
-        }
+        Session::put('user_data', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
 
+        Session::put('otp', $otp);
+
+        Mail::raw("Your OTP for registration is: $otp", function ($message) use ($request) {
+            $message->to($request->email)->subject('Email Verification OTP');
+        });
+
+        return redirect()->route('otp.verification')->with('success', 'OTP sent to your email. Please verify.');
     }
+
     function LoginUser(Request $data){
         $data->validate([
             'email' => 'required | email ',

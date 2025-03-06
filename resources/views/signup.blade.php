@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email"  />
+              <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
               <span style=" color:red ">@error('email'){{$message}}@enderror</span>
             </div>
             <div class="form-group">
@@ -65,16 +65,13 @@
               <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
               <span style=" color:red ">@error('password'){{$message}}@enderror</span>
             </div>
+            <div class="form-group">
+              <label for="password_confirmation">Confirm Password</label>
+              <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Password"  />
+              <span style=" color:red ">@error('password_confirmation'){{$message}}@enderror</span>
+            </div>
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </form>
-          <div class="text-center mb-3">
-                    <p class="text-muted">or</p>
-                    <a href="{{ url('auth/google') }}" class="btn goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
-                        <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
-                        Continue with Google
-                    </a>
-                </div>
-        </div>
         <div class="card-footer text-center">
           <span>Already have an Account? <a href="{{ Route('login') }}">Login</a></span>
         </div>

@@ -8,11 +8,18 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\UserAuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OTPVerificationController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
+Route::controller(OTPVerificationController::class)->group(function () {
+
+    Route::get('/otp-verification', 'showOtpForm')->name('otp.verification');
+    Route::post('/verify-otp', 'verifyOtp')->name('otp.verify');
+
+});
 Route::controller(AuthController::class)->group(function () {
 
     Route::get('/', 'ShowLogin')->name('login');
@@ -26,7 +33,6 @@ Route::controller(AuthController::class)->group(function () {
 
 });
 
-// User routes with user.auth middleware
 Route::middleware([UserAuthMiddleware::class])->group(function () {
     Route::get('/userdash', [AuthController::class, 'ShowUserDash'])->name('userdash');
 
@@ -63,7 +69,6 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
    
 });
 
-// Admin routes with admin middleware
 Route::middleware([AdminMiddleware::class])->group(function () {
 
     Route::get('/admdash', [AuthController::class, 'ShowAdminDash'])->name('admdash');
@@ -79,7 +84,3 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('UnfreezeUser/{id}', 'UnfreezeUser')->name('UnfreezeUser');
     });
 });
-
-
-
-
