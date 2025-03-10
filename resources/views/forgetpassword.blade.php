@@ -19,9 +19,14 @@
         margin: 0;
       }
       .form-container {
+        margin-top: 50px;
         display: flex;
         justify-content: flex-end;
-      }
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        padding-left: 45em;
+    }
       .card {
         width: 100%;
         max-width: 400px;
@@ -36,6 +41,11 @@
     .dd{
       margin-top:10px;
     }
+    .alert {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
     </style>
   </head>
   <body>
