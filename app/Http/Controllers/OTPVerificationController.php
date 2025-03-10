@@ -22,6 +22,10 @@ class OTPVerificationController extends Controller
             'otp' => 'required|numeric|digits:6',
         ]);
 
+        if (Session::has('user_email.email') && Session::get('otp') == $request->otp){
+            return redirect()->route('password-form')->with('success', 'Verification successful! You can now Change Password.');
+        }
+
         if (Session::has('otp') && Session::get('otp') == $request->otp) {
 
             $userData = Session::get('user_data');

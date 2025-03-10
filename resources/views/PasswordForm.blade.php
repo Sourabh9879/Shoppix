@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Registration</title>
+    <title>Change Password</title>
     <style>
       body {
         background-image: url('{{ asset('background.jpeg') }}');
@@ -25,19 +25,15 @@
         width: 100%;
         max-width: 400px;
       }
-      .goggle-btn {
-        border:1px solid black;
-        background: white;
-        transition: all 0.3s ease;
+      .btl{
+        text-decoration:none;
+        color:black;
     }
-
-    .goggle-btn:hover {
-        background: #f8f9fa;
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .btl:hover{
+        text-decoration:none;
     }
-    .text-muted{
-      padding-top:10px;
+    .dd{
+      margin-top:10px;
     }
     </style>
   </head>
@@ -45,35 +41,23 @@
     <div class="container form-container">
       <div class="card">
         <div class="card-header">
-          <h3>Make Your <strong>Shoppix</strong> Account</h3>
+          <h3>Change Password</h3>
         </div>
         <div class="card-body">
-          <form class="registration-form" action="RegisterUser" method="post">
+          <form class="forget-password-form" action="{{ route('handlePassword') }}" method="post">
             @csrf
             <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Name"  />
-              <span style=" color:red ">@error('name'){{$message}}@enderror</span>
+              <label for="new_password">New Password</label>
+              <input type="password" class="form-control" id="new_password" name="new_password" />
+              <span style="color:red">@error('new_password'){{ $message }}@enderror</span>
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
-              <span style=" color:red ">@error('email'){{$message}}@enderror</span>
+              <label for="new_password_confirmation">Confirm Password</label>
+              <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" />
+              <span style="color:red">@error('new_password_confirmation'){{ $message }}@enderror</span>
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
-              <span style=" color:red ">@error('password'){{$message}}@enderror</span>
-            </div>
-            <div class="form-group">
-              <label for="password_confirmation">Confirm Password</label>
-              <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password"  />
-              <span style=" color:red ">@error('password_confirmation'){{$message}}@enderror</span>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
           </form>
-        <div class="card-footer text-center">
-          <span>Already have an Account? <a href="{{ Route('login') }}">Login</a></span>
         </div>
       </div>
     </div>

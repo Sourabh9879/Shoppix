@@ -30,7 +30,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('auth/google', 'redirectToGoogle');
     Route::get('auth/google/callback', 'handleGoogleCallback');
     Route::post('change-password','changePassword')->name('changePassword');
-
+    Route::get('/forget-password', 'ShowForget')->name('forget');
+    Route::get('/password-form', 'ShowPass')->name('password-form');
+    Route::post('password-validation', 'handlePassword')->name('handlePassword');
+    Route::post('ForgetPassword', 'ForgetPassword')->name('ForgetPassword');
+    
 });
 
 Route::middleware([UserAuthMiddleware::class])->group(function () {

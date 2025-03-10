@@ -44,7 +44,7 @@
     }
 
     .goggle-btn {
-        border:1px solid black;
+        border: 1px solid black;
         background: white;
         transition: all 0.3s ease;
     }
@@ -52,11 +52,21 @@
     .goggle-btn:hover {
         background: #f8f9fa;
         transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .gap-2 {
         gap: 0.5rem;
+    }
+    .glg{
+        margin-top: 12px;
+    }
+    .fg{
+        text-decoration:none;
+        color:black;
+    }
+    .fg:hover{
+        text-decoration:none;
     }
     </style>
 </head>
@@ -64,7 +74,8 @@
 <body>
     <div class="container form-container">
         @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center justify-content-center" id="alertMessage" style="max-width: 400px;">
+        <div class="alert alert-success d-flex align-items-center justify-content-center" id="alertMessage"
+            style="max-width: 400px;">
             <span class="material-symbols-outlined me-1">
                 check_circle
             </span>
@@ -72,7 +83,8 @@
         </div>
         @endif
         @if (session('failed'))
-        <div class="alert alert-danger d-flex align-items-center justify-content-center" id="alertMessage" style="max-width: 400px;">
+        <div class="alert alert-danger d-flex align-items-center justify-content-center" id="alertMessage"
+            style="max-width: 400px;">
             <span class="material-symbols-outlined me-1">
                 warning
             </span>
@@ -93,20 +105,29 @@
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="floatingPassword password" name="password"
+                            placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Verify</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
                 </form>
-                
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('forget') }}" class="fg">Forgot Password?</a>
+                </div>
+
                 <div class="text-center mb-3">
-                    <p class="text-muted">or</p>
-                    <a href="{{ url('auth/google') }}" class="btn goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
+                    <div class="d-flex align-items-center">
+                        <hr class="flex-grow-1">
+                        <span class="mx-2 text-muted">OR</span>
+                        <hr class="flex-grow-1">
+                    </div>
+                    <a href="{{ url('auth/google') }}"
+                        class="btn glg goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
                         <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
                         Continue with Google
                     </a>
                 </div>
-                
+
                 <div class="text-center">
                     <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
                 </div>
@@ -125,18 +146,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-<script>
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
             let alertBox = document.getElementById("alertMessage");
             if (alertBox) {
                 alertBox.style.transition = "opacity 0.5s";
                 alertBox.style.opacity = "0";
-                setTimeout(() => alertBox.remove(), 500); 
+                setTimeout(() => alertBox.remove(), 500);
             }
         }, 3000);
     });
-</script>
+    </script>
 </body>
 </body>
 

@@ -184,4 +184,69 @@ class AuthController extends Controller
             return redirect()->back()->with('failed','Old Password is Incorrect');
         }
     }
+
+    function ShowForget(){
+        return view('forgetpassword');
+    }
+
+    function ShowPass(){
+        if(session('user_email.email')){
+            return view('PasswordForm');
+        }
+        return redirect()->route('forget');
+       
+    }
+
+    function ForgetPassword(Request $request){
+
+        $valid = $request->validate([
+            'email' => 'required | email',
+        ],[
+            'email.email' => 'Invalid Email.',
+            'email.exists' => 'This Email is not registered.',
+            'email.required' => 'Email is required.',
+        ]);
+
+        $data = User::where('email', $request->email)->first();
+        if($data){
+
+        $otp = rand(100000, 999999);
+
+        Session::put('user_email', [
+            'email' => $request->email,
+        ]);
+
+        Session::put('otp', $otp);
+
+        Mail::raw("Your OTP To Reset Your Password is: $otp", function ($message) use ($request) {
+            $message->to($request->email)->subject('Reset Password OTP');
+        });
+
+        return redirect()->route('forget')->with('success', 'OTP sent to your email. Please verify.');
+    }else{
+        return redirect()->route('forget')->with('failed', 'Email Not Found');
+    }
+    }
+
+    function handlePassword(Request $request){
+        $data = $request->validate([
+            'new_password' => 'required|min:4|confirmed',
+            'new_password_confirmation' => 'required'
+        ],[
+            'new_password.required' => 'Password is required.',
+            'new_password.min' => 'Password must be minimum 4 characters.',
+            'new_password.confirmed' => 'Passwords do not match.',
+            'new_password_confirmation.required' => 'Password confirmation is required.'
+        ]);
+
+        $user = User::where('email', session('user_email.email'))->first();
+        if ($user) {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            Session::forget(['otp', 'user_email']);
+            return redirect()->route('login')->with('success', 'Password Changed. You Can Now Login.');
+        } else {
+            return redirect()->route('forget')->with('failed', 'User not found.');
+        }
+    }
 }
