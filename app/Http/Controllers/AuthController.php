@@ -86,7 +86,7 @@ class AuthController extends Controller
 
         Session::put('otp', $otp);
 
-        Mail::raw("Your OTP for registration is: $otp", function ($message) use ($request) {
+        Mail::send('emails.register-otp', ['otp' => $otp], function ($message) use ($request) {
             $message->to($request->email)->subject('Email Verification OTP');
         });
 
@@ -217,8 +217,9 @@ class AuthController extends Controller
         ]);
 
         Session::put('otp', $otp);
+        Session::put('name', $data->name);
 
-        Mail::raw("Your OTP To Reset Your Password is: $otp", function ($message) use ($request) {
+        Mail::send('emails.otp', ['otp' => $otp], function ($message) use ($request) {
             $message->to($request->email)->subject('Reset Password OTP');
         });
 
