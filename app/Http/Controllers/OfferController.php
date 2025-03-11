@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\User;
 
 class OfferController extends Controller
 {
@@ -24,6 +25,10 @@ class OfferController extends Controller
         $offer->product_name = $request->input('product_name');
         $offer->status = 'pending';
         $offer->save();
+        
+        $seller = User::find($request->seller_id);
+        $seller->new_message = true;
+        $seller->save();
 
         return redirect()->back()->with('success', 'Offer sent successfully!');
     }
@@ -43,6 +48,13 @@ class OfferController extends Controller
 
     function showMessage(){
         $sellerId = session('user_id');
+
+        $user = auth()->user();
+
+        if ($user->new_message == true) {
+            $user->new_message = false;
+            $user->save();
+        }
 
         $offers = Offer::where('offers.seller_id',$sellerId)
                       ->orderBy('offers.created_at', 'desc')

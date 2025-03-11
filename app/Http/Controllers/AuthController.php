@@ -98,13 +98,15 @@ class AuthController extends Controller
             'email' => 'required | email ',
             'password' => 'required '
         ],
-    [
-        'email.required' => 'Email is required.',
-        'password.required' => 'Password is required.',
-    ]);
-    
+        [
+            'email.required' => 'Email is required.',
+            'password.required' => 'Password is required.',
+        ]);
+
         $user = User::where('email', $data->email)->first();
         if($user && Hash::check($data->password, $user->password)){
+            Auth::login($user);
+
             session([
                 'name' => $user->name,
                 'user_id' => $user->id,
@@ -112,7 +114,7 @@ class AuthController extends Controller
                 'status' => $user->status,
                 'user_image' => $user->image
             ]);
-            
+
             if($user->role === 'admin') {
                 return redirect()->route('admdash');
             } else {

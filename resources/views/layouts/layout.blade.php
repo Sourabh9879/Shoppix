@@ -352,7 +352,7 @@
 
 <body>
     <div class="sidebar">
-            <h4>Shoppix</h4>
+        <h4>Shoppix</h4>
         <div class="d-flex">
             <span class="material-symbols-outlined">home</span>
             <a href="{{ route('userdash') }}" class="">Dashboard</a>
@@ -391,11 +391,16 @@
             </span>
             <a href="{{ route('offer') }}">Offers</a>
         </div>
-        <div class="d-flex">
-            <span class="material-symbols-outlined">
-                chat
-            </span>
-            <a href="{{ route('message') }}">Message</a>
+        <div class="d-flex position-relative">
+            <span class="material-symbols-outlined">mail</span>
+            <a href="{{ route('message') }}" style="position: relative;">
+                Messages
+                @if(auth()->user()->new_message)
+                <span
+                    style="width: 12px; height: 12px; background-color: red; border-radius: 50%; position: absolute; top: -5px; right: -10px; box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);">
+                </span>
+                @endif
+            </a>
         </div>
         <div class="d-flex">
             <a href="{{ route('logout') }}" class="logout">
