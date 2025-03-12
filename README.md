@@ -134,6 +134,20 @@ GOOGLE_REDIRECT_URI
 
 ```
 
+## Email Configuration
+```php
+
+MAIL_MAILER=
+MAIL_HOST=
+MAIL_PORT=
+MAIL_ENCRYPTION=
+MAIL_USERNAME=your_gmail
+MAIL_PASSWORD="use App password instead of password"
+MAIL_FROM_NAME="project_name"
+MAIL_FROM_ADDRESS=your_gmail
+
+```
+
 ## Routes Documentation
 
 ### Authentication Routes
@@ -143,6 +157,15 @@ POST   /LoginUser        # Authenticate user login
 GET    /signup           # Show registration page
 POST   /RegisterUser     # Register new user
 GET    /LogoutUser       # Logout user and clear session
+GET    /auth/google      # Redirect to Google OAuth
+GET    /auth/google/callback # Handle Google OAuth callback
+POST   /change-password  # Change user password
+GET    /forget-password  # Show forget password page
+GET    /password-form    # Show password reset form
+POST   /password-validation # Validate password reset
+POST   /ForgetPassword   # Handle forget password request
+GET    /otp-verification # Show OTP verification form
+POST   /verify-otp       # Verify OTP
 ```
 
 ### User Routes
