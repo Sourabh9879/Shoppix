@@ -62,7 +62,9 @@
                     <div class="d-grid gap-2">
                         @if($product->user_id !== session('user_id'))
                         @if(session('status') == true)
-                        @if(isset($offer) && $offer->status == 'pending')
+                        @if($isSold)
+                        <div class="text-center text-danger">Sold</div>
+                        @elseif(isset($offer) && $offer->status == 'pending')
                         <div class="text-center text-warning">Pending</div>
                         @elseif(isset($offer) && $offer->status == 'accepted')
                         <div class="text-center text-success">Accepted</div>

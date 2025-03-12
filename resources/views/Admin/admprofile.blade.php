@@ -51,7 +51,7 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ $data->email }}" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $data->email }}" disabled>
                 </div>
 
                 <div class="mb-3">

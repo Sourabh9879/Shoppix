@@ -17,7 +17,12 @@ class ProductController extends Controller
         ->where('user_id', $user->id)
         // ->where('status', 'pending')
         ->first();
-        return view('User.product-details', compact('product', 'user', 'offer'));
+
+        $isSold = Offer::where('product_id', $id)
+        ->where('status', 'accepted')
+        ->exists();
+
+        return view('User.product-details', compact('product', 'user', 'offer','isSold'));
     }
 
     public function search(Request $request)
