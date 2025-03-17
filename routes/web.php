@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/password-form', 'ShowPass')->name('password-form');
     Route::post('password-validation', 'handlePassword')->name('handlePassword');
     Route::post('ForgetPassword', 'ForgetPassword')->name('ForgetPassword');
+    Route::post('otp-resend', 'resendOtp')->name('otp.resend');
     
 });
 
@@ -88,3 +90,16 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('UnfreezeUser/{id}', 'UnfreezeUser')->name('UnfreezeUser');
     });
 });
+
+Route::get('/cancel', function () {
+    Session::forget('user_data');
+    Session::forget('otp');
+    return redirect()->route('signup');
+})->name('cancel');
+
+Route::get('/back', function () {
+    Session::forget('user_email');
+    Session::forget('name');
+    Session::forget('otp');
+    return redirect()->route('login');
+})->name('back');

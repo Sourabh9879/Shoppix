@@ -86,10 +86,16 @@
                         <input type="text" name="otp" class="form-control" required autofocus>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Verify</button>
-                    <button type="submit" class="btn btn-secondary mt-3"><a href="{{ route('signup') }}" class="cncl">Cancel</a></button>
+                    <button type="submit" class="btn btn-secondary mt-3"><a href="{{ route('cancel') }}" class="cncl">Cancel</a></button>
                 </form>
+                <div class="mt-3">
+                    <span id="timer">Resend OTP in 60 seconds</span>
+                    <form method="POST" action="{{ route('otp.resend') }}" id="resendOtpForm" style="display: none;">
+                        @csrf
+                        <button type="submit" class="btn btn-link">Resend OTP</button>
+                    </form>
+                </div>
             </div>
-            
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -97,14 +103,29 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                let alertBox = document.getElementById("alertMessage");
-                if (alertBox) {
+            let alertBox = document.getElementById("alertMessage");
+            if (alertBox) {
+                setTimeout(function() {
                     alertBox.style.transition = "opacity 0.5s";
                     alertBox.style.opacity = "0";
                     setTimeout(() => alertBox.remove(), 500);
+                }, 3000);
+            }
+
+            let timerElement = document.getElementById("timer");
+            let resendOtpForm = document.getElementById("resendOtpForm");
+            let countdown = 60;
+
+            let timerInterval = setInterval(function() {
+                countdown--;
+                timerElement.textContent = `Resend OTP in ${countdown} seconds`;
+
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.style.display = "none";
+                    resendOtpForm.style.display = "block";
                 }
-            }, 3000);
+            }, 1000);
         });
     </script>
 </body>

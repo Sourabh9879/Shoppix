@@ -252,4 +252,23 @@ class AuthController extends Controller
             return redirect()->route('forget')->with('failed', 'User not found.');
         }
     }
+
+    public function resendOtp(Request $request)
+    {
+        $userData = Session::get('user_data') ?? Session::get('user_email');
+        if (!$userData) {
+            return redirect()->route('login')->with('failed', 'Session expired. Please try again.');
+        }
+        
+        Session::forget('otp');
+        $otp = rand(100000, 999999);
+        Session::put('otp', $otp);
+        Session::put('otp_expiry', now()->addSeconds(60));
+
+        Mail::send('emails.register-otp', ['otp' => $otp], function ($message) use ($userData) {
+            $message->to($userData['email'])->subject('Resend OTP');
+        });
+
+        return redirect()->back()->with('success', 'OTP resent to your email.');
+    }
 }
