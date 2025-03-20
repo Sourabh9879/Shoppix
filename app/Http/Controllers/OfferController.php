@@ -27,7 +27,7 @@ class OfferController extends Controller
         $offer->save();
         
         $seller = User::find($request->seller_id);
-        $seller->new_message = true;
+        $seller->new_message = $seller->new_message + 1;
         $seller->save();
 
         return redirect()->back()->with('success', 'Offer sent successfully!');
@@ -51,8 +51,8 @@ class OfferController extends Controller
 
         $user = auth()->user();
 
-        if ($user->new_message == true) {
-            $user->new_message = false;
+        if ($user->new_message > 0) {
+            $user->new_message = 0;
             $user->save();
         }
 

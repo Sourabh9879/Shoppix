@@ -126,6 +126,16 @@
         color: #fff;
     }
 
+    .sidebar .d-flex.active {
+        background-color: #374151; /* Highlight color */
+        color: white;
+    }
+
+    .sidebar .d-flex.active a {
+        color: white;
+        font-weight: bold;
+    }
+
     /* Logout Button */
     .sidebar .logout {
         background-color: #ef4444;
@@ -353,51 +363,49 @@
 <body>
     <div class="sidebar">
         <h4>Shoppix</h4>
-        <div class="d-flex">
+        <div class="d-flex {{ Route::currentRouteName() == 'userdash' ? 'active' : '' }}">
             <span class="material-symbols-outlined">home</span>
             <a href="{{ route('userdash') }}" class="">Dashboard</a>
         </div>
-        <div class="d-flex">
+        <div class="d-flex {{ Route::currentRouteName() == 'myproducts' ? 'active' : '' }}">
             <span class="material-symbols-outlined">inventory</span>
             <a href="{{ route('myproducts') }}" class="">My Products</a>
         </div>
 
-        <div class="d-flex">
+        <div class="d-flex {{ Route::currentRouteName() == 'userproducts' ? 'active' : '' }}">
             <span class="material-symbols-outlined">format_list_bulleted</span>
             <a href="{{ route('userproducts') }}">Products</a>
         </div>
 
         @if(session('status') === 1)
-        <div class="d-flex">
+        <div class="d-flex {{ Route::currentRouteName() == 'addProduct' ? 'active' : '' }}">
             <span class="material-symbols-outlined">add_task</span>
             <a href="{{ route('addProduct') }}">Sell</a>
         </div>
         @endif
 
-        <div class="d-flex">
-            <span class="material-symbols-outlined">
-                favorite
-            </span>
+        <div class="d-flex {{ Route::currentRouteName() == 'cart' ? 'active' : '' }}">
+            <span class="material-symbols-outlined">favorite</span>
             <a href="{{ route('cart') }}">Wishlist</a>
         </div>
 
-        <div class="d-flex">
+        <div class="d-flex {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}">
             <span class="material-symbols-outlined">manage_accounts</span>
             <a href="{{ route('profile',['id' => session('user_id')]) }}">Profile</a>
         </div>
-        <div class="d-flex">
-            <span class="material-symbols-outlined">
-                local_offer
-            </span>
-            <a href="{{ route('offer') }}">Offers</a>
+        <div class="d-flex {{ Route::currentRouteName() == 'offer' ? 'active' : '' }}">
+            <span class="material-symbols-outlined">local_offer</span>
+            <a href="{{ route('offer') }}">Offer</a>
         </div>
-        <div class="d-flex position-relative">
+        <div class="d-flex position-relative {{ Route::currentRouteName() == 'message' ? 'active' : '' }}">
             <span class="material-symbols-outlined">mail</span>
             <a href="{{ route('message') }}" style="position: relative;">
-                Messages
-                @if(auth()->user()->new_message)
+                Message
+                @if(auth()->user()->new_message > 0)
                 <span
-                    style="width: 12px; height: 12px; background-color: red; border-radius: 50%; position: absolute; top: -5px; right: -10px; box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);">
+                class="ms-3"
+                    style="background-color: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 14px; box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);">
+                    {{ auth()->user()->new_message }}
                 </span>
                 @endif
             </a>
