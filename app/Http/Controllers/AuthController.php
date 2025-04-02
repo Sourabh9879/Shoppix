@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -148,7 +149,7 @@ class AuthController extends Controller
         ], [
             'name' => $googleUser->getName(),
             'google_id' => $googleUser->getId(),
-            'password' => bcrypt('password')
+            'password' => bcrypt(Str::random(16))
         ]);
 
         Auth::login($user);
