@@ -115,7 +115,7 @@
                     <a href="{{ route('forget') }}" class="fg">Forgot Password?</a>
                 </div>
 
-                <div class="text-center mb-3">
+                <!-- <div class="text-center mb-3">
                     <div class="d-flex align-items-center">
                         <hr class="flex-grow-1">
                         <span class="mx-2 text-muted">OR</span>
@@ -126,7 +126,7 @@
                         <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
                         Continue with Google
                     </a>
-                </div>
+                </div> -->
 
                 <div class="text-center">
                     <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>

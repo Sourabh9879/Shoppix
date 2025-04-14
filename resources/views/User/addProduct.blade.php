@@ -13,7 +13,7 @@
 
             <div id="alertMessage" style="display: none;"></div>
 
-            <form id="addProductForm" enctype="multipart/form-data">
+            <form action="{{ route('storeProduct') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
