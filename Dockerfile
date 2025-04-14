@@ -35,5 +35,5 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 
 EXPOSE 80
 
-CMD php artisan storage:link && apache2-foreground
+CMD ["sh", "-c", "php artisan storage:link && apache2-foreground"]
 
