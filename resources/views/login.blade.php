@@ -58,15 +58,18 @@
     .gap-2 {
         gap: 0.5rem;
     }
-    .glg{
+
+    .glg {
         margin-top: 12px;
     }
-    .fg{
-        text-decoration:none;
-        color:black;
+
+    .fg {
+        text-decoration: none;
+        color: black;
     }
-    .fg:hover{
-        text-decoration:none;
+
+    .fg:hover {
+        text-decoration: none;
     }
     </style>
 </head>
@@ -100,15 +103,17 @@
                     @csrf
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput email" name="email"
+                        <input type="email" class="form-control" id="email" name="email" autocomplete="email"
                             placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
+                        <label for="email">Email address</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword password" name="password"
-                            placeholder="Password">
-                        <label for="floatingPassword">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            autocomplete="current-password" placeholder="Password">
+                        <label for="password">Password</label>
                     </div>
+
                     <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
                 </form>
                 <div class="d-flex justify-content-end">

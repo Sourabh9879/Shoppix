@@ -119,32 +119,36 @@
 
                     <!-- Right Column -->
                     <div class="col-7">
-                        <form id="offerForm" action="{{ route('storeOffer') }}" method="POST">
+                        <form id="offerForm" action="{{ route('storeOffer') }}" method="POST" autocomplete="on">
                             @csrf
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="{{ session('name') }}" readonly>
+                                    <input type="text" class="form-control" value="{{ session('name') }}" readonly
+                                        autocomplete="name">
                                     <input type="hidden" name="name" value="{{ session('name') }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" value="{{ $user->phone }}" readonly>
+                                    <input type="tel" class="form-control" value="{{ $user->phone }}" readonly
+                                        autocomplete="tel">
                                     <input type="hidden" name="phone" value="{{ $user->phone }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" value="{{ $user->email }}" readonly>
+                                    <input type="email" class="form-control" value="{{ $user->email }}" readonly
+                                        autocomplete="email">
                                     <input type="hidden" name="email" value="{{ $user->email }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Offer Amount (₹)</label>
-                                    <input type="number" name="offer_price" class="form-control" required>
+                                    <input type="number" name="offer_price" class="form-control" required
+                                        autocomplete="off">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Message</label>
                                     <textarea name="message" class="form-control" rows="2"
-                                        placeholder="Write a message..."></textarea>
+                                        placeholder="Write a message..." autocomplete="off"></textarea>
                                 </div>
                                 <!-- Hidden fields for seller's information -->
                                 <input type="hidden" name="seller_name" value="{{ $product->user_name }}">
@@ -160,6 +164,7 @@
                                 <button type="submit" class="btn btn-primary">Send Offer</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -171,7 +176,9 @@
 <form id="reportForm" action="{{ route('ReportUser', ['id' => $product->user_id]) }}" method="POST">
     @csrf
     <input type="hidden" name="hasError" value="{{ $errors->has('message') ? 'true' : 'false' }}">
-    <div class="modal fade @if($errors->has('message')) show @endif" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true" @if($errors->has('message')) style="display: block;" @endif>
+    <div class="modal fade @if($errors->has('message')) show @endif" id="reportModal" tabindex="-1"
+        aria-labelledby="reportModalLabel" aria-hidden="true" @if($errors->has('message')) style="display: block;"
+        @endif>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

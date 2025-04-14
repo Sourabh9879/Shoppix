@@ -18,11 +18,13 @@
         height: 250px;
         object-fit: contain;
     }
-    .ra{
+
+    .ra {
         border: 1px solid black;
 
     }
-    .ra:hover{
+
+    .ra:hover {
         border: 2px solid black;
     }
     </style>
@@ -49,7 +51,8 @@
         <div class="col-md-4">
             <div class="card h-100">
                 <div class="position-relative">
-                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top p-3" alt="{{ $product->name }}" style="height: 200px; object-fit: contain;">
+                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top p-3"
+                        alt="{{ $product->name }}" style="height: 200px; object-fit: contain;">
                 </div>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold mb-1">{{ $product->name }}</h5>
@@ -61,11 +64,13 @@
                     <p class="card-text text-muted mb-3">{{ Str::limit($product->desc, 100) }}</p>
                     <div class="mt-auto">
                         <div class="d-flex gap-2">
-                            <button class="btn flex-grow-1 ra" data-bs-toggle="modal" data-bs-target="#editModal{{ $product->id }}">
+                            <button class="btn flex-grow-1 ra" data-bs-toggle="modal"
+                                data-bs-target="#editModal{{ $product->id }}">
                                 <span class="material-symbols-outlined align-middle me-1">edit</span>
                                 Edit
                             </button>
-                            <button class="btn btn-danger w-50" data-bs-toggle="modal" data-bs-target="#deleteModal" data-product-id="{{ $product->id }}">
+                            <button class="btn btn-danger w-50" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-product-id="{{ $product->id }}">
                                 <span class="material-symbols-outlined align-middle me-1">delete</span>
                                 Delete
                             </button>
@@ -82,37 +87,49 @@
                         <h5 class="modal-title">Edit Product</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form action="{{ route('updateProduct', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('updateProduct', $product->id) }}" method="POST"
+                        enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="name" value="{{ $product->name }}" required>
+                                <input type="text" class="form-control" name="name" value="{{ $product->name }}"
+                                    required autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Category</label>
                                 <select class="form-control" name="category" required>
-                                    <option value="Electronics" {{ $product->category == 'Electronics' ? 'selected' : '' }}>Electronics</option>
-                                    <option value="Furniture" {{ $product->category == 'Furniture' ? 'selected' : '' }}>Furniture</option>
-                                    <option value="Vehicles" {{ $product->category == 'Vehicles' ? 'selected' : '' }}>Vehicles</option>
-                                    <option value="Real Estate" {{ $product->category == 'Real Estate' ? 'selected' : '' }}>Real Estate</option>
-                                    <option value="Books" {{ $product->category == 'Books' ? 'selected' : '' }}>Books</option>
-                                    <option value="Sports" {{ $product->category == 'Sports' ? 'selected' : '' }}>Sports</option>
-                                    <option value="Others" {{ $product->category == 'Others' ? 'selected' : '' }}>Others</option>
+                                    <option value="Electronics"
+                                        {{ $product->category == 'Electronics' ? 'selected' : '' }}>Electronics</option>
+                                    <option value="Furniture" {{ $product->category == 'Furniture' ? 'selected' : '' }}>
+                                        Furniture</option>
+                                    <option value="Vehicles" {{ $product->category == 'Vehicles' ? 'selected' : '' }}>
+                                        Vehicles</option>
+                                    <option value="Real Estate"
+                                        {{ $product->category == 'Real Estate' ? 'selected' : '' }}>Real Estate</option>
+                                    <option value="Books" {{ $product->category == 'Books' ? 'selected' : '' }}>Books
+                                    </option>
+                                    <option value="Sports" {{ $product->category == 'Sports' ? 'selected' : '' }}>Sports
+                                    </option>
+                                    <option value="Others" {{ $product->category == 'Others' ? 'selected' : '' }}>Others
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Price</label>
-                                <input type="number" class="form-control" name="price" value="{{ $product->price }}" required>
+                                <input type="number" class="form-control" name="price" value="{{ $product->price }}"
+                                    required autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
-                                <textarea class="form-control" name="desc" required>{{ $product->desc }}</textarea>
+                                <textarea class="form-control" name="desc" required
+                                    autocomplete="off">{{ $product->desc }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Image</label>
-                                <input type="file" class="form-control" name="image" accept=".jpg,.png,.jpeg">
+                                <input type="file" class="form-control" name="image" accept=".jpg,.png,.jpeg"
+                                    autocomplete="off">
                                 <small class="text-muted">Leave empty to keep current image</small>
                             </div>
                         </div>
@@ -121,6 +138,7 @@
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -157,24 +175,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 {{-- Hide errors automatic --}}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            let alertBox = document.getElementById("alertMessage");
-            if (alertBox) {
-                alertBox.style.transition = "opacity 0.5s";
-                alertBox.style.opacity = "0";
-                setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
-            }
-        }, 3000); // 3 seconds delay
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        let alertBox = document.getElementById("alertMessage");
+        if (alertBox) {
+            alertBox.style.transition = "opacity 0.5s";
+            alertBox.style.opacity = "0";
+            setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
+        }
+    }, 3000); // 3 seconds delay
 
-        // Handle delete button click
-        document.querySelectorAll('[data-bs-target="#deleteModal"]').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-product-id');
-                const deleteForm = document.getElementById('deleteForm');
-                deleteForm.setAttribute('action', '{{ route('deleteProduct', '') }}/' + productId);
-            });
+    // Handle delete button click
+    document.querySelectorAll('[data-bs-target="#deleteModal"]').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const deleteForm = document.getElementById('deleteForm');
+            deleteForm.setAttribute('action', '{{ route('
+                deleteProduct ', '
+                ') }}/' + productId);
         });
     });
+});
 </script>
 @endsection
