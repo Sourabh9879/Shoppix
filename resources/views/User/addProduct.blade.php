@@ -84,31 +84,5 @@ function previewImage(input) {
     }
 }
 
-$(document).ready(function() {
-    $('#addProductForm').on('submit', function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('
-            storeProduct ') }}',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                $('#alertMessage').removeClass('alert-danger').addClass(
-                    'alert alert-success').text(response.message).show();
-                $('#addProductForm')[0].reset();
-                $('#imagePreview').hide();
-            },
-            error: function(response) {
-                $('#alertMessage').removeClass('alert-success').addClass(
-                    'alert alert-danger').text(response.responseJSON.message).show();
-            }
-        });
-    });
-});
 </script>
 @endsection

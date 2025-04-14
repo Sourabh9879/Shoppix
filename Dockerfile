@@ -20,7 +20,7 @@ COPY . /var/www/html
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-RUN php artisan storage:link
+# RUN php artisan storage:link
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
@@ -35,4 +35,5 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD php artisan storage:link && apache2-foreground
+
