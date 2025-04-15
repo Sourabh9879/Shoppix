@@ -79,9 +79,8 @@
     /* Content */
     .content {
         flex: 1;
-        padding: 20px;
+        padding: 0 20px 20px 20px;  /* Remove top padding */
         margin-left: 250px;
-        /* Same as sidebar width */
         overflow-y: auto;
         height: 100vh;
     }
@@ -90,34 +89,42 @@
     .header {
         background-color: #1f2937;
         color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
+        padding: 4px 12px;  /* Reduced padding */
+        border-radius: 0;   /* Remove border radius */
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;   /* Make header sticky */
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header h2 {
+        font-size: 1rem;  /* Smaller font size */
+        margin: 0;
     }
 
     .header .user-info {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 6px;         /* Reduced gap */
         background: #374151;
-        padding: 8px 15px;
-        border-radius: 30px;
+        padding: 2px 10px;  /* Reduced padding */
+        border-radius: 20px;
         transition: all 0.3s ease;
     }
 
-    .header .user-info:hover {
-        background: #4b5563;
+    .header .user-info img {
+        width: 24px;      /* Smaller image */
+        height: 24px;
+        border-radius: 50%;
+        border: 1px solid #4b5563;
     }
 
-    .header .user-info img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 2px solid #4b5563;
+    .header .user-info .material-symbols-outlined {
+        font-size: 18px;  /* Smaller icon */
     }
 
     /* Sidebar Links */
@@ -193,36 +200,77 @@
     /* Responsive Design */
     @media (max-width: 768px) {
         .sidebar {
-            width: 80px;
-            padding: 1rem 0.5rem;
+            transform: translateX(-100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            z-index: 1035;
         }
 
-        .sidebar h4,
-        .sidebar-link span:not(.material-symbols-outlined) {
-            display: none;
-        }
-
-        .sidebar-link {
-            justify-content: center;
-            padding: 0.875rem;
-        }
-
-        .sidebar-link .material-symbols-outlined {
-            margin: 0;
-            font-size: 1.5rem;
+        .sidebar.active {
+            transform: translateX(0);
         }
 
         .content {
-            padding: 1rem;
-            margin-left: 80px;
+            margin-left: 0;
+            padding: 0;
         }
 
-        .header {
-            padding: 1rem;
+        .content > *:not(.header) {
+            padding: 15px;  /* Add padding to content except header */
         }
 
-        .user-info span:not(.material-symbols-outlined) {
+        /* Add hamburger menu styles */
+        .hamburger-menu {
+            position: static;
+            display: block;
+            margin-right: 15px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+        }
+
+        .hamburger-menu .bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: #ffffff;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger-menu.active .bar:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .hamburger-menu.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .bar:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Add overlay styles */
+        .sidebar-overlay {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1034;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
         }
     }
     </style>
@@ -258,8 +306,13 @@
 
     <!-- Main Content -->
     <div class="content">
-        <!-- Header -->
         <div class="header">
+            <!-- Add hamburger menu -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
             <h2>@yield('heading')</h2>
             <div class="user-info">
                 @if(session('user_image'))
@@ -274,8 +327,46 @@
         @yield('content')
     </div>
 
+    <!-- Add overlay div after sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+                hamburgerMenu.classList.toggle('active');
+            }
+
+            hamburgerMenu.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+
+            // Close sidebar when clicking a link (for mobile)
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
