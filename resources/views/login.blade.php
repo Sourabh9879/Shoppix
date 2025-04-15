@@ -16,26 +16,33 @@
         background-image: url('{{ asset('background.jpeg')}}');
         background-size: cover;
         background-position: center;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0;
+        padding: 15px;
     }
 
     .form-container {
-        margin-top: 50px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
         width: 100%;
-        flex-direction: column;
-        padding-left: 45em;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 15px;
+    }
+
+    @media (min-width: 992px) {
+        .form-container {
+            margin-left: auto;
+            margin-right: 5%;
+            padding-left: 0;
+        }
     }
 
     .card {
         width: 100%;
         max-width: 400px;
+        margin: 0 auto;
     }
 
     .alert {
@@ -76,69 +83,69 @@
 
 <body>
     <div class="container form-container">
-        @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center justify-content-center" id="alertMessage"
-            style="max-width: 400px;">
-            <span class="material-symbols-outlined me-1">
-                check_circle
-            </span>
-            {{ session('success') }}
-        </div>
-        @endif
-        @if (session('failed'))
-        <div class="alert alert-danger d-flex align-items-center justify-content-center" id="alertMessage"
-            style="max-width: 400px;">
-            <span class="material-symbols-outlined me-1">
-                warning
-            </span>
-            {{ session('failed') }}
-        </div>
-        @endif
-        <div class="card">
-            <div class="card-header">
-                <h2>Have your products ready with <strong>Shoppix</strong></h2>
-            </div>
-            <div class="card-body">
-                <form class="login-form" action="{{ Route('LoginUser') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" name="email" autocomplete="email"
-                            placeholder="name@example.com">
-                        <label for="email">Email address</label>
+                    @if (session('success'))
+                    <div class="alert alert-success d-flex align-items-center justify-content-center" id="alertMessage"
+                        style="max-width: 400px;">
+                        <span class="material-symbols-outlined me-1">
+                            check_circle
+                        </span>
+                        {{ session('success') }}
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" name="password"
-                            autocomplete="current-password" placeholder="Password">
-                        <label for="password">Password</label>
+                    @endif
+                    @if (session('failed'))
+                    <div class="alert alert-danger d-flex align-items-center justify-content-center" id="alertMessage"
+                        style="max-width: 400px;">
+                        <span class="material-symbols-outlined me-1">
+                            warning
+                        </span>
+                        {{ session('failed') }}
                     </div>
+                    @endif
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Have your products ready with <strong>Shoppix</strong></h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="login-form" action="{{ Route('LoginUser') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" autocomplete="email"
+                                        placeholder="name@example.com">
+                                    <label for="email">Email address</label>
+                                </div>
 
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
-                </form>
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('forget') }}" class="fg">Forgot Password?</a>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        autocomplete="current-password" placeholder="Password">
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
+                            </form>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('forget') }}" class="fg">Forgot Password?</a>
+                            </div>
+
+                            <!-- <div class="text-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <hr class="flex-grow-1">
+                                    <span class="mx-2 text-muted">OR</span>
+                                    <hr class="flex-grow-1">
+                                </div>
+                                <a href="{{ url('auth/google') }}"
+                                    class="btn glg goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
+                                    <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
+                                    Continue with Google
+                                </a>
+                            </div> -->
+
+                            <div class="text-center">
+                                <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- <div class="text-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <hr class="flex-grow-1">
-                        <span class="mx-2 text-muted">OR</span>
-                        <hr class="flex-grow-1">
-                    </div>
-                    <a href="{{ url('auth/google') }}"
-                        class="btn glg goggle-btn btn-block d-flex align-items-center justify-content-center gap-2">
-                        <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
-                        Continue with Google
-                    </a>
-                </div> -->
-
-                <div class="text-center">
-                    <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

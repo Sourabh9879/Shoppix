@@ -79,34 +79,39 @@
     .header {
         background-color: #1f2937;
         color: white;
-        padding: 15px 20px;
+        padding: 8px 15px;
         border-radius: 5px;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h2 {
+        font-size: 1.2rem;
+        margin: 0;
     }
 
     .header .user-info {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         background: #374151;
-        padding: 8px 15px;
-        border-radius: 30px;
+        padding: 4px 12px;
+        border-radius: 20px;
         transition: all 0.3s ease;
     }
 
-    .header .user-info:hover {
-        background: #4b5563;
+    .header .user-info img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #4b5563;
     }
 
-    .header .user-info img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 2px solid #4b5563;
+    .header .user-info .material-symbols-outlined {
+        font-size: 20px;
     }
 
     /* Sidebar Links */
@@ -192,35 +197,79 @@
     /* Responsive Design */
     @media (max-width: 768px) {
         .sidebar {
-            width: 80px;
-            padding: 1rem 0.5rem;
+            width: 60px;
+            padding: 15px 5px;
+            z-index: 1030;
         }
 
         .sidebar h4,
-        .sidebar-link span:not(.material-symbols-outlined) {
+        .sidebar a span:not(.material-symbols-outlined) {
             display: none;
         }
 
-        .sidebar-link {
+        .sidebar .d-flex {
             justify-content: center;
-            padding: 0.875rem;
+            padding: 10px 5px;
         }
 
-        .sidebar-link .material-symbols-outlined {
-            margin: 0;
-            font-size: 1.5rem;
+        .sidebar .logout span:not(.material-symbols-outlined) {
+            display: none;
         }
 
         .content {
-            padding: 1rem;
+            margin-left: 60px;
+            padding: 15px;
         }
+    }
 
+    /* Responsive Content */
+    @media (max-width: 576px) {
         .header {
-            padding: 1rem;
+            flex-direction: row;
+            gap: 8px;
+            padding: 8px 15px 8px 60px;
         }
 
-        .user-info span:not(.material-symbols-outlined) {
-            display: none;
+        .header h2 {
+            font-size: 1.1rem;
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+    }
+
+    /* Responsive Tables */
+    @media (max-width: 768px) {
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+
+    /* Responsive Cards */
+    @media (max-width: 576px) {
+        .card {
+            margin-bottom: 15px;
+        }
+
+        .stat-card {
+            margin-bottom: 15px;
+        }
+    }
+
+    /* Quick Actions Responsive */
+    @media (max-width: 576px) {
+        .d-flex.gap-2 {
+            flex-wrap: wrap;
+        }
+
+        .d-flex.gap-2 .btn {
+            width: calc(50% - 5px);
+            margin-bottom: 10px;
         }
     }
 
@@ -356,12 +405,114 @@
             padding: 16px 0;
         }
     }
+
+    /* Updated Hamburger Menu Styles */
+    .hamburger-menu {
+        position: static;
+        display: none;
+        margin-right: 15px;
+        top: auto;
+        left: auto;
+        background: transparent;  /* Remove any background */
+        border: none;            /* Remove border */
+        padding: 0;             /* Remove padding */
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+    }
+
+    .hamburger-menu .bar {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: #ffffff;  /* Make bars white to show against dark header */
+        margin: 5px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+        .hamburger-menu {
+            display: block;
+        }
+
+        .header {
+            padding: 8px 15px;
+        }
+
+        .sidebar {
+            transform: translateX(-100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            z-index: 1035;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .content {
+            margin-left: 0;
+            padding: 60px 15px 15px 15px;
+        }
+
+        .sidebar h4,
+        .sidebar a span:not(.material-symbols-outlined),
+        .sidebar .logout span:not(.material-symbols-outlined) {
+            display: inline;
+        }
+
+        .sidebar .d-flex {
+            justify-content: flex-start;
+            padding: 10px 15px;
+        }
+
+        /* Overlay when sidebar is open */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1034;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    }
+
+    /* Add this to make hamburger white when in header */
+    .header .hamburger-menu .bar {
+        background-color: #ffffff;
+    }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <div class="sidebar">
+    <!-- Add Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
         <h4>Shoppix</h4>
         <div class="d-flex {{ Route::currentRouteName() == 'userdash' ? 'active' : '' }}">
             <span class="material-symbols-outlined">home</span>
@@ -420,6 +571,12 @@
     <!-- Main Content -->
     <div class="content">
         <div class="header">
+            <!-- Add hamburger menu here as first element -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
             <h2>@yield('heading')</h2>
             <div class="user-info">
                 @if(session('user_image'))
@@ -436,6 +593,41 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add this JavaScript before the closing body tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+            }
+
+            hamburgerMenu.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+
+            // Close sidebar when clicking a link (for mobile)
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

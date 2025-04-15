@@ -94,79 +94,73 @@
 
 <!-- Offer Modal -->
 <div class="modal fade" id="offerModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header py-2">
-                <h5 class="modal-title fs-6">Make an Offer</h5>
+            <div class="modal-header">
+                <h5 class="modal-title">Make an Offer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body p-4">
-                <div class="row g-4">
-                    <!-- Left Column -->
-                    <div class="col-5">
-                        <div class="product-summary bg-light rounded p-3 h-100">
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                class="rounded w-100 mb-3" style="height: 120px; object-fit: contain;">
-                            <h6 class="mb-2">{{ $product->name }}</h6>
-                            <p class="mb-0 text-primary fw-bold fs-5">₹{{ $product->price }}</p>
-                            <span class="text-muted small">
-                                <span class="material-symbols-outlined align-middle me-1"
-                                    style="font-size: 16px;">person</span>
-                                {{ $product->user_name }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Right Column -->
-                    <div class="col-7">
-                        <form id="offerForm" action="{{ route('storeOffer') }}" method="POST" autocomplete="on">
-                            @csrf
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="{{ session('name') }}" readonly
-                                        autocomplete="name">
-                                    <input type="hidden" name="name" value="{{ session('name') }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" value="{{ $user->phone }}" readonly
-                                        autocomplete="tel">
-                                    <input type="hidden" name="phone" value="{{ $user->phone }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" value="{{ $user->email }}" readonly
-                                        autocomplete="email">
-                                    <input type="hidden" name="email" value="{{ $user->email }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Offer Amount (₹)</label>
-                                    <input type="number" name="offer_price" class="form-control" required
-                                        autocomplete="off">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Message</label>
-                                    <textarea name="message" class="form-control" rows="2"
-                                        placeholder="Write a message..." autocomplete="off"></textarea>
-                                </div>
-                                <!-- Hidden fields for seller's information -->
-                                <input type="hidden" name="seller_name" value="{{ $product->user_name }}">
-                                <input type="hidden" name="seller_id" value="{{ $product->user_id }}">
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="user_id" value="{{ session('user_id') }}">
-                                <input type="hidden" name="price" value="{{ $product->price }}">
-                                <input type="hidden" name="product_image" value="{{ $product->image }}">
-                                <input type="hidden" name="product_name" value="{{ $product->name }}">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Send Offer</button>
-                            </div>
-                        </form>
-
+            <div class="modal-body">
+                <!-- Product Summary -->
+                <div class="product-summary mb-4 d-flex align-items-center gap-3">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="product-thumbnail">
+                    <div>
+                        <h6 class="mb-1">{{ $product->name }}</h6>
+                        <p class="mb-1 text-primary fw-bold">₹{{ $product->price }}</p>
+                        <small class="text-muted d-flex align-items-center">
+                            <span class="material-symbols-outlined me-1" style="font-size: 16px;">person</span>
+                            {{ $product->user_name }}
+                        </small>
                     </div>
                 </div>
+
+                <!-- Offer Form -->
+                <form id="offerForm" action="{{ route('storeOffer') }}" method="POST" autocomplete="off">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Name</label>
+                        <input type="text" class="form-control form-control-sm" value="{{ session('name') }}" readonly>
+                        <input type="hidden" name="name" value="{{ session('name') }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Phone</label>
+                        <input type="tel" class="form-control form-control-sm" value="{{ $user->phone }}" readonly>
+                        <input type="hidden" name="phone" value="{{ $user->phone }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Email</label>
+                        <input type="email" class="form-control form-control-sm" value="{{ $user->email }}" readonly>
+                        <input type="hidden" name="email" value="{{ $user->email }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Your Offer Amount (₹)</label>
+                        <input type="number" name="offer_price" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Message (Optional)</label>
+                        <textarea name="message" class="form-control form-control-sm" rows="2" 
+                            placeholder="Write a message to the seller..."></textarea>
+                    </div>
+
+                    <!-- Hidden fields -->
+                    <input type="hidden" name="seller_name" value="{{ $product->user_name }}">
+                    <input type="hidden" name="seller_id" value="{{ $product->user_id }}">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="user_id" value="{{ session('user_id') }}">
+                    <input type="hidden" name="price" value="{{ $product->price }}">
+                    <input type="hidden" name="product_image" value="{{ $product->image }}">
+                    <input type="hidden" name="product_name" value="{{ $product->name }}">
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Send Offer</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -236,6 +230,54 @@
 .nme {
     font-weight: bold;
     font-size: 1.2em;
+}
+
+.product-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.modal-dialog {
+    max-width: 400px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-body {
+    padding: 16px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+}
+
+.form-control:read-only {
+    background-color: #f8f9fa;
+}
+
+.form-control-sm {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.875rem;
+}
+
+.btn-sm {
+    padding: 0.4rem 1rem;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 1rem;
+    }
 }
 </style>
 <script>

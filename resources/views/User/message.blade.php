@@ -31,6 +31,26 @@
     gap: 10px;
     justify-content: center;
 }
+
+@media (max-width: 768px) {
+    .table td {
+        white-space: nowrap;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+
+    .badge {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
 </style>
 <div class="container">
     <div class="card">

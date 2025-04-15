@@ -13,20 +13,30 @@
             background-image: url('{{ asset('background.jpeg') }}');
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
+            padding: 15px;
         }
 
         .form-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
             width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 15px;
+            display: flex;
             flex-direction: column;
-            padding-left: 45em;
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .form-container {
+                margin-left: auto;
+                margin-right: 5%;
+                padding-left: 0;
+            }
         }
 
         .card {

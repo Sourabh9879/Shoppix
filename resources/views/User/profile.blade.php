@@ -146,4 +146,28 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<style>
+    @media (max-width: 992px) {
+        .col-6 {
+            width: 100%;
+            padding: 15px;
+        }
+
+        .card {
+            min-width: unset !important;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 10px;
+        }
+
+        .card {
+            padding: 15px !important;
+        }
+    }
+</style>
+
 @endsection

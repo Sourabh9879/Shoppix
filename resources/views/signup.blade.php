@@ -11,19 +11,30 @@
         background-image: url('{{ asset('background.jpeg') }}');
         background-size: cover;
         background-position: center;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0;
+        padding: 15px;
       }
       .form-container {
-        display: flex;
-        justify-content: flex-end;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 15px;
+      }
+      @media (min-width: 992px) {
+        .form-container {
+          margin-left: auto;
+          margin-right: 5%;
+          padding-left: 0;
+        }
       }
       .card {
         width: 100%;
         max-width: 400px;
+        margin: 0 auto;
       }
       .goggle-btn {
         border:1px solid black;
@@ -43,40 +54,40 @@
   </head>
   <body>
     <div class="container form-container">
-      <div class="card">
-        <div class="card-header">
-          <h3>Make Your <strong>Shoppix</strong> Account</h3>
-        </div>
-        <div class="card-body">
-          <form class="registration-form" action="RegisterUser" method="post">
-            @csrf
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Name"  />
-              <span style=" color:red ">@error('name'){{$message}}@enderror</span>
+            <div class="card">
+              <div class="card-header">
+                <h3>Make Your <strong>Shoppix</strong> Account</h3>
+              </div>
+              <div class="card-body">
+                <form class="registration-form" action="RegisterUser" method="post">
+                  @csrf
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name"  />
+                    <span style=" color:red ">@error('name'){{$message}}@enderror</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
+                    <span style=" color:red ">@error('email'){{$message}}@enderror</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
+                    <span style=" color:red ">@error('password'){{$message}}@enderror</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password"  />
+                    <span style=" color:red ">@error('password_confirmation'){{$message}}@enderror</span>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+              <div class="card-footer text-center">
+                <span>Already have an Account? <a href="{{ Route('login') }}">Login</a></span>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Email"  />
-              <span style=" color:red ">@error('email'){{$message}}@enderror</span>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
-              <span style=" color:red ">@error('password'){{$message}}@enderror</span>
-            </div>
-            <div class="form-group">
-              <label for="password_confirmation">Confirm Password</label>
-              <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password"  />
-              <span style=" color:red ">@error('password_confirmation'){{$message}}@enderror</span>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </form>
-        <div class="card-footer text-center">
-          <span>Already have an Account? <a href="{{ Route('login') }}">Login</a></span>
-        </div>
-      </div>
-    </div>
+          </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

@@ -181,18 +181,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (alertBox) {
             alertBox.style.transition = "opacity 0.5s";
             alertBox.style.opacity = "0";
-            setTimeout(() => alertBox.remove(), 500); // Remove element after fade out
+            setTimeout(() => alertBox.remove(), 500);
         }
-    }, 3000); // 3 seconds delay
+    }, 3000);
 
     // Handle delete button click
     document.querySelectorAll('[data-bs-target="#deleteModal"]').forEach(button => {
         button.addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
             const deleteForm = document.getElementById('deleteForm');
-            deleteForm.setAttribute('action', '{{ route('
-                deleteProduct ', '
-                ') }}/' + productId);
+            deleteForm.setAttribute('action', `/delete-product/${productId}`);
         });
     });
 });
