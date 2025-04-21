@@ -120,6 +120,10 @@
                                         autocomplete="current-password" placeholder="Password">
                                     <label for="password">Password</label>
                                 </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="showPassword">
+                                    <label class="form-check-label" for="showPassword">Show Password</label>
+                                </div>
 
                                 <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
                             </form>
@@ -127,7 +131,7 @@
                                 <a href="{{ route('forget') }}" class="fg">Forgot Password?</a>
                             </div>
 
-                            <!-- <div class="text-center mb-3">
+                            <div class="text-center mb-3">
                                 <div class="d-flex align-items-center">
                                     <hr class="flex-grow-1">
                                     <span class="mx-2 text-muted">OR</span>
@@ -138,7 +142,7 @@
                                     <img src="https://www.google.com/favicon.ico" alt="Google" style="width: 18px; height: 18px;">
                                     Continue with Google
                                 </a>
-                            </div> -->
+                            </div>
 
                             <div class="text-center">
                                 <span>Don't have an Account? <a href="{{ Route('signup') }}">Register</a></span>
@@ -168,6 +172,13 @@
                 setTimeout(() => alertBox.remove(), 500);
             }
         }, 3000);
+
+        const passwordField = document.getElementById("password");
+        const showPasswordCheckbox = document.getElementById("showPassword");
+
+        showPasswordCheckbox.addEventListener("change", function() {
+            passwordField.type = this.checked ? "text" : "password";
+        });
     });
     </script>
 </body>

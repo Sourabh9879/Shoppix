@@ -142,26 +142,30 @@ class AuthController extends Controller
             return redirect()->route('login')->withErrors(['message' => 'Google login was canceled.']);
         }
 
-        $googleUser = Socialite::driver('google')->stateless()->user();
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-        $user = User::updateOrCreate([
-            'email' => $googleUser->getEmail(),
-        ], [
-            'name' => $googleUser->getName(),
-            'google_id' => $googleUser->getId(),
-            'password' => bcrypt(Str::random(16))
-        ]);
+            $user = User::updateOrCreate([
+                'email' => $googleUser->getEmail(),
+            ], [
+                'name' => $googleUser->getName(),
+                'google_id' => $googleUser->getId(),
+                'password' => bcrypt(Str::random(16))
+            ]);
 
-        Auth::login($user);
-        session([
-            'name' => $user->name,
-            'user_id' => $user->id,
-            'role' => $user->role,
-            'status' => $user->status,
-            'user_image' => $user->image
-        ]);
+            Auth::login($user);
+            session([
+                'name' => $user->name,
+                'user_id' => $user->id,
+                'role' => $user->role,
+                'status' => $user->status,
+                'user_image' => $user->image
+            ]);
 
-        return redirect('/userdash');
+            return redirect('/userdash');
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('failed', 'Authentication failed. Please try again.');
+        }
     }
 
     function changePassword(Request $request){

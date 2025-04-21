@@ -81,6 +81,10 @@
                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password"  />
                     <span style=" color:red ">@error('password_confirmation'){{$message}}@enderror</span>
                   </div>
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Show Password</label>
+                  </div>
                   <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </form>
               <div class="card-footer text-center">
@@ -96,6 +100,19 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const passwordField = document.getElementById("password");
+        const confirmPasswordField = document.getElementById("password_confirmation");
+        const showPasswordCheckbox = document.getElementById("showPassword");
+
+        showPasswordCheckbox.addEventListener("change", function() {
+            const type = this.checked ? "text" : "password";
+            passwordField.type = type;
+            confirmPasswordField.type = type;
+        });
+    });
     </script>
   </body>
 </html>
