@@ -126,7 +126,7 @@
 
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Phone</label>
-                        <input type="tel" class="form-control form-control-sm" value="{{ $user->phone }}" readonly>
+                        <input type="tel" class="form-control form-control-sm" value="{{ $user->phone }}" required>
                         <input type="hidden" name="phone" value="{{ $user->phone }}">
                     </div>
 

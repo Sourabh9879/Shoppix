@@ -112,7 +112,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'user_id' => $user->id,
                 'role' => $user->role,
-                'status' => $user->status,
+                'status' => $user->status ? 1 : 0, // Convert status to 1 or 0
                 'user_image' => $user->image
             ]);
 
@@ -158,7 +158,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'user_id' => $user->id,
                 'role' => $user->role,
-                'status' => $user->status,
+                'status' => $user->status ? 1 : 0, // Convert status to 1 or 0
                 'user_image' => $user->image
             ]);
 
