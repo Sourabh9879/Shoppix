@@ -684,143 +684,61 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Chatbot functionality
-        $(document).ready(function() {
-            const chatbotButton = $('#chatbot-button');
-            const chatbotWidget = $('#chatbot-widget');
-            const chatbotClose = $('.chatbot-close');
-            const chatbotMessages = $('#chatbot-messages');
-            const chatbotInput = $('#chatbot-input');
-            const chatbotSend = $('#chatbot-send');
-            
-            let isLoading = false;
+        // Minimal chatbot script: toggle, send, append messages
+        $(function() {
+            const $button = $('#chatbot-button');
+            const $widget = $('#chatbot-widget');
+            const $messages = $('#chatbot-messages');
+            const $input = $('#chatbot-input');
+            const $send = $('#chatbot-send');
 
-            // Toggle chatbot widget
-            chatbotButton.on('click', function() {
-                chatbotWidget.toggleClass('active');
-                if (chatbotWidget.hasClass('active')) {
-                    loadChatHistory();
-                    chatbotInput.focus();
+            function appendMessage(text, type) {
+                const $msg = $('<div>').addClass('chatbot-message').addClass(type);
+                const $content = $('<div>').addClass('message-content').text(text);
+                $msg.append($content);
+                $messages.append($msg);
+                $messages.scrollTop($messages[0].scrollHeight);
+            }
+
+            // Toggle widget
+            $button.on('click', function() {
+                $widget.toggleClass('active');
+                if ($widget.hasClass('active')) {
+                    $input.focus();
                 }
             });
 
-            chatbotClose.on('click', function() {
-                chatbotWidget.removeClass('active');
+            $('.chatbot-close').on('click', function() {
+                $widget.removeClass('active');
             });
-
-            // Load chat history
-            function loadChatHistory() {
-                $.ajax({
-                    url: '{{ route("chatbot.history") }}',
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.success && response.chats.length > 0) {
-                            chatbotMessages.empty();
-                            response.chats.forEach(function(chat) {
-                                appendMessage(chat.message, 'user', false);
-                                appendMessage(chat.response, 'bot', false);
-                            });
-                            scrollToBottom();
-                        }
-                    }
-                });
-            }
 
             // Send message
             function sendMessage() {
-                const message = chatbotInput.val().trim();
-                
-                if (!message || isLoading) return;
-                
-                // Display user message
+                const message = $input.val().trim();
+                if (!message) return;
+
                 appendMessage(message, 'user');
-                chatbotInput.val('');
-                
-                // Show typing indicator
-                isLoading = true;
-                chatbotSend.prop('disabled', true);
-                showTypingIndicator();
-                
-                // Send to backend
+                $input.val('');
+
                 $.ajax({
                     url: '{{ route("chatbot.send") }}',
                     method: 'POST',
-                    data: {
-                        message: message,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        hideTypingIndicator();
-                        if (response.success) {
-                            appendMessage(response.response, 'bot');
+                    data: { message: message, _token: '{{ csrf_token() }}' },
+                    success: function(res) {
+                        if (res && res.success) {
+                            appendMessage(res.response, 'bot');
                         } else {
                             appendMessage('Sorry, I encountered an error. Please try again.', 'bot');
                         }
                     },
                     error: function() {
-                        hideTypingIndicator();
                         appendMessage('Sorry, I\'m having trouble connecting. Please try again later.', 'bot');
-                    },
-                    complete: function() {
-                        isLoading = false;
-                        chatbotSend.prop('disabled', false);
-                        chatbotInput.focus();
                     }
                 });
             }
 
-            // Append message to chat
-            function appendMessage(text, type, animate = true) {
-                const messageDiv = $('<div>')
-                    .addClass('chatbot-message')
-                    .addClass(type);
-                
-                const contentDiv = $('<div>')
-                    .addClass('message-content')
-                    .text(text);
-                
-                messageDiv.append(contentDiv);
-                
-                if (!animate) {
-                    messageDiv.css('animation', 'none');
-                }
-                
-                chatbotMessages.append(messageDiv);
-                scrollToBottom();
-            }
-
-            // Show typing indicator
-            function showTypingIndicator() {
-                const typingDiv = $('<div>')
-                    .addClass('chatbot-message bot typing-message');
-                
-                const indicator = $('<div>')
-                    .addClass('typing-indicator')
-                    .html('<span></span><span></span><span></span>');
-                
-                typingDiv.append(indicator);
-                chatbotMessages.append(typingDiv);
-                scrollToBottom();
-            }
-
-            // Hide typing indicator
-            function hideTypingIndicator() {
-                $('.typing-message').remove();
-            }
-
-            // Scroll to bottom
-            function scrollToBottom() {
-                chatbotMessages.scrollTop(chatbotMessages[0].scrollHeight);
-            }
-
-            // Event listeners
-            chatbotSend.on('click', sendMessage);
-            
-            chatbotInput.on('keypress', function(e) {
-                if (e.which === 13) {
-                    sendMessage();
-                }
-            });
+            $send.on('click', sendMessage);
+            $input.on('keypress', function(e) { if (e.which === 13) sendMessage(); });
         });
     </script>
 </body>
