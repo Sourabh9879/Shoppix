@@ -147,77 +147,30 @@ MAIL_FROM_NAME="project_name"
 MAIL_FROM_ADDRESS=your_gmail
 
 ```
+<img width="1920" height="1080" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/e5497954-6286-4580-9079-4b5c60034979" />
 
-## Routes Documentation
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/37ce37fc-86b9-40a8-9e6d-b67ac74502e0" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/6d966cc9-db2d-475a-8373-deb3dba08fba" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/24314086-26f8-40a9-9c47-aa3a22abba29" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/1017fe39-9cf7-41f3-8787-362451ef7153" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/8d5073ce-eea2-46cf-80b6-48c8dea0c874" />
+<img width="1920" height="1080" alt="Screenshot (100)" src="https://github.com/user-attachments/assets/7cf58dee-1761-48d8-aa5c-cecf95534a05" />
 
-### Authentication Routes
-```php
-GET    /                  # Show login page
-POST   /LoginUser        # Authenticate user login
-GET    /signup           # Show registration page
-POST   /RegisterUser     # Register new user
-GET    /LogoutUser       # Logout user and clear session
-GET    /auth/google      # Redirect to Google OAuth
-GET    /auth/google/callback # Handle Google OAuth callback
-POST   /change-password  # Change user password
-GET    /forget-password  # Show forget password page
-GET    /password-form    # Show password reset form
-POST   /password-validation # Validate password reset
-POST   /ForgetPassword   # Handle forget password request
-GET    /otp-verification # Show OTP verification form
-POST   /verify-otp       # Verify OTP
-```
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/f73bd20c-4d24-471d-b447-541e91cca9d8" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/c8848035-4a46-43d6-8ab7-9b1a2103ead5" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/400b93f6-d712-4b0f-9d8f-ab4e9b96413b" />
+<img width="1920" height="1080" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/07a543c3-6e50-4fbf-ac1d-12d4f8923458" />
+<img width="1920" height="1080" alt="Screenshot (105)" src="https://github.com/user-attachments/assets/10a3eb23-d408-4eb2-a42b-fa3b4ba598fd" />
+<img width="1920" height="1080" alt="Screenshot (106)" src="https://github.com/user-attachments/assets/49d3594a-4958-4495-b98e-f24d17cca8ba" />
+<img width="1920" height="1080" alt="Screenshot (107)" src="https://github.com/user-attachments/assets/d6fc5189-d0c2-482b-87b0-4873d0b8aafc" />
 
-### User Routes
-```php
-GET    /userdash         # User dashboard with statistics and recent products
-GET    /products         # Display all available products
-GET    /add-product      # Show add product form
-POST   /store-product    # Save new product to database
-GET    /my-products      # Show user's listed products
-GET    /profile/{id}     # Show user profile
-PUT    /profile/{id}     # Update user profile information
-GET    /cart             # Show user's wishlist items
-PUT    /update-product/{id}    # Update product details
-DELETE /delete-product/{id}    # Remove product listing
-POST   /add-to-cart/{id}      # Add product to wishlist
-DELETE /remove-from-cart/{id}  # Remove product from wishlist
-POST   /report-user/{id}      # Report a user for inappropriate behavior
-```
 
-### Product Routes
-```php
-GET    /product/{id}     # Show detailed product view
-GET    /search           # Search products by name or description
-```
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/4bbcfb38-9c1f-42db-8341-88140ed22700" />
+<img width="1500" height="844" alt="image" src="https://github.com/user-attachments/assets/581397d1-ced5-4c8c-8ef2-8163dbb86a38" />
 
-### Offer Routes
-```php
-POST   /store-offer      # Store new offer for a product
-GET    /offer           # Show offers made by current user
-GET    /message         # Show received offers for seller
-GET    /accept/{id}     # Accept an offer
-GET    /reject/{id}     # Reject an offer
-GET    /deleteoffer/{id} # Delete an offer
-```
 
-### Admin Routes
-```php
-GET    /admdash         # Admin dashboard with statistics
-GET    /admprofile/{id} # Admin profile view
-PUT    /admprofile/{id} # Update admin profile
-GET    /admin-products  # View all products in system
-DELETE /deleteProduct/{id}    # Remove product from system
-GET    /users           # View all users
-DELETE /deleteUser/{id}       # Remove user from system
-GET    /FreezeUser/{id}      # Disable user account
-GET    /UnfreezeUser/{id}    # Enable user account
-```
 
-### Google OAuth Routes
-```php
-GET    /auth/google          # Redirect to Google OAuth
-GET    /auth/google/callback # Handle Google OAuth callback
-```
 
-All routes except login and signup are protected by authentication middleware to ensure secure access.
+
+
+

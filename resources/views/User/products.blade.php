@@ -25,10 +25,27 @@
     .search-input {
         padding: 10px;
         font-size: 16px;
-        width: 400px;
-        margin-right: 10px;
+        width: 100%;
+        max-width: 400px;
         margin-bottom: 20px;
-        margin-left: 400px;
+    }
+
+    @media (max-width: 768px) {
+        .search-input {
+            margin-left: 0;
+            margin-right: 0;
+            width: calc(100% - 100px);
+        }
+
+        .search-button {
+            padding: 10px 15px;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .search-input {
+            margin-left: 400px;
+        }
     }
 </style>
 <form action="{{ route('search') }}" method="GET" onsubmit="return checkSearchInput()">

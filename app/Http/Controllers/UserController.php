@@ -18,15 +18,15 @@ class UserController extends Controller
             $query->where('status', '1');
         })
         ->get();
-        return view('user.products', compact('products'));
+        return view('User.products', compact('products'));
     }
     function addProduct(){
-        return view('user.addProduct');
+        return view('User.addProduct');
     }
     
     function showProfile($id){
         $user = User::find($id);
-        return view('user.profile', ["data" => $user]);
+        return view('User.profile', ["data" => $user]);
     }
 
     function updateProfile(Request $request, $id){
@@ -77,12 +77,12 @@ class UserController extends Controller
 
     function showCart(){
         $cartItems = Cart::where('user_id', session('user_id'))->get();
-        return view('user.cart', compact('cartItems'));
+        return view('User.cart', compact('cartItems'));
     }
 
     function myProducts(){
         $products = Product::where('user_id', session('user_id'))->get();
-        return view('user.myproducts', compact('products'));
+        return view('User.myproducts', compact('products'));
     }
 
     function storeProduct(Request $request){

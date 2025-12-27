@@ -11,15 +11,15 @@ class AdminController extends Controller
 {
     function showProducts(){
         $product = Product::all();
-        return view('admin.products', ["data" => $product]);
+        return view('Admin.products', ["data" => $product]);
     }
     function showUsers(){
         $user = User::where('role','user')->get();
-        return view('admin.users',["data" => $user]);
+        return view('Admin.users',["data" => $user]);
     }
     function showadmProfile($id){
         $user = User::find($id);
-        return view('admin.admprofile', ["data" => $user]);
+        return view('Admin.admprofile', ["data" => $user]);
     }
 
     function DeleteProduct($id){
