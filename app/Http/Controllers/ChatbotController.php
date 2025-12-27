@@ -107,4 +107,4 @@ class ChatbotController extends Controller
             'chats' => []
         ]);
     }
-}
+};
