@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\UserAuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\OTPVerificationController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -71,6 +72,11 @@ Route::middleware([UserAuthMiddleware::class])->group(function () {
         Route::get('/product/{id}','show')->name('product.details');
         Route::get('/search','search')->name('search');
 
+    });
+
+    Route::controller(ChatbotController::class)->group(function(){
+        Route::post('/chatbot/send','sendMessage')->name('chatbot.send');
+        Route::get('/chatbot/history','getChatHistory')->name('chatbot.history');
     });
    
 });

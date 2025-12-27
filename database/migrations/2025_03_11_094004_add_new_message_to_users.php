@@ -9,7 +9,9 @@ class AddNewMessageToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('new_message')->default(0)->change();
+            if (!Schema::hasColumn('users', 'new_message')) {
+                $table->integer('new_message')->default(0);
+            }
         });
     }
 
